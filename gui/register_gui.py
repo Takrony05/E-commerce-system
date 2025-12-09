@@ -5,7 +5,7 @@ from pathlib import Path
 ctk.set_appearance_mode("light")
 
 class RegisterApp:
-    def __init__(self, open_login_callback):
+    def __init__(self, open_login_callback=None):
         self.open_login_callback = open_login_callback
         self.root = ctk.CTk()
         self.root.title("E-JUST Store - Register")
@@ -16,19 +16,17 @@ class RegisterApp:
         self.setup_ui()
 
     def setup_background(self):
-
-        # ---------------- Background ----------------
         base_path = Path(__file__).resolve().parent
         bg_path = base_path / "assets" / "background.jpg"
 
         if bg_path.exists():
-            bg_image_pil = Image.open(bg_path) 
+            bg_image_pil = Image.open(bg_path)
             bg_image_pil = bg_image_pil.resize((900, 600), Image.Resampling.LANCZOS)
-            
+
             self.bg_ctk_image = ctk.CTkImage(
-                light_image=bg_image_pil, 
+                light_image=bg_image_pil,
                 dark_image=bg_image_pil,
-                size=(900, 600) 
+                size=(900, 600)
             )
 
             bg_label = ctk.CTkLabel(self.root, image=self.bg_ctk_image, text="")
@@ -39,7 +37,8 @@ class RegisterApp:
             print(f"Error: Background file not found at {bg_path}")
 
     def setup_ui(self):
-        # الشريط الأحمر
+
+        # العنوان
         title_frame = ctk.CTkFrame(
             self.root,
             fg_color="#c0392b",
@@ -51,7 +50,7 @@ class RegisterApp:
 
         ctk.CTkLabel(
             title_frame,
-            text="JUST E-pay  ",
+            text="JUST E-Buy",
             font=ctk.CTkFont(
                 family="Comic Sans MS",
                 size=56,
@@ -61,30 +60,31 @@ class RegisterApp:
             text_color="white"
         ).place(relx=0.5, rely=0.5, anchor="center")
 
-        # الصندوق الأبيض (مرفوع لفوق سنة)
+        # White Register Frame
         self.register_frame = ctk.CTkFrame(
             self.root,
             width=520,
-            height=420,
+            height=500,
             fg_color="white",
             corner_radius=28,
             border_width=5,
             border_color="#e74c3c"
         )
-        self.register_frame.place(relx=0.5, rely=0.57, anchor="center")
+        self.register_frame.place(relx=0.5, rely=0.58, anchor="center")
         self.register_frame.pack_propagate(False)
 
-        # عنوان REGISTER
+        # REGISTER Title
         ctk.CTkLabel(
             self.register_frame,
             text="REGISTER",
             font=ctk.CTkFont("Arial Black", 38),
             text_color="#2c3e50"
-        ).pack(pady=(30, 20))
+        ).pack(pady=(25, 15))
 
+        #Entry Style 
         entry_style = {
-            "width": 300,
-            "height": 45,
+            "width": 320,
+            "height": 50,
             "corner_radius": 20,
             "fg_color": "white",
             "border_width": 3,
@@ -94,35 +94,46 @@ class RegisterApp:
             "text_color": "#2c3e50"
         }
 
+        #الاسم
+        self.name_entry = ctk.CTkEntry(
+            self.register_frame,
+            placeholder_text="Enter your name",
+            **entry_style
+        )
+        self.name_entry.pack(pady=10)
+
+        # الاكونت
         self.acc_entry = ctk.CTkEntry(
             self.register_frame,
             placeholder_text="Enter your account",
             **entry_style
         )
-        self.acc_entry.pack(pady=12)
+        self.acc_entry.pack(pady=10)
 
+        #الباسورد
         self.pass_entry = ctk.CTkEntry(
             self.register_frame,
             placeholder_text="Enter your password",
             show="*",
             **entry_style
         )
-        self.pass_entry.pack(pady=12)
+        self.pass_entry.pack(pady=10)
 
+        # الباسووورد تاكيد 
         self.confirm_entry = ctk.CTkEntry(
             self.register_frame,
             placeholder_text="Confirm password",
             show="*",
             **entry_style
         )
-        self.confirm_entry.pack(pady=(12, 30))
+        self.confirm_entry.pack(pady=(10, 25))
 
-        # زرار SIGN UP
+        # sign_up button
         ctk.CTkButton(
             self.register_frame,
             text="SIGN UP",
-            width=240,
-            height=55,
+            width=250,
+            height=60,
             corner_radius=35,
             fg_color="#e74c3c",
             hover_color="#c0392b",
@@ -132,12 +143,19 @@ class RegisterApp:
         ).pack()
 
     def signup_action(self):
-        print("Account:", self.acc_entry.get())
-        print("Password:", self.pass_entry.get())
-        print("Confirm:", self.confirm_entry.get())
+        self.customer_name = self.name_entry.get()  # تخزين اسم العميل
+        account = self.acc_entry.get()
+        password = self.pass_entry.get()
+        confirm = self.confirm_entry.get()
+
+        print("Name:", self.customer_name)
+        print("Account:", account)
+        print("Password:", password)
+        print("Confirm Password:", confirm)
 
     def run(self):
         self.root.mainloop()
+
 
 if __name__ == "__main__":
     app = RegisterApp()
