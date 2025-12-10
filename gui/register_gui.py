@@ -18,7 +18,6 @@ class RegisterApp:
     def setup_background(self):
         base_path = Path(__file__).resolve().parent
         bg_path = base_path / "assets" / "background.jpg"
-
         if bg_path.exists():
             bg_image_pil = Image.open(bg_path)
             bg_image_pil = bg_image_pil.resize((900, 600), Image.Resampling.LANCZOS)
