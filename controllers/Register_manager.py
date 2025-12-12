@@ -2,10 +2,11 @@ import sqlite3
 import hashlib
 from datetime import datetime 
 from pathlib import Path
+from database.path_helper import get_db_path
 
 
 def register_user(name, email, plain_password, role_id=1):
-    conn = sqlite3.connect(r"c:\Users\omar sayed\Desktop\E-Commerce\ecommerce.db")
+    conn = sqlite3.connect(get_db_path())
     c = conn.cursor()
 
     c.execute("SELECT 1 FROM Users WHERE email = ? LIMIT 1", (email,))

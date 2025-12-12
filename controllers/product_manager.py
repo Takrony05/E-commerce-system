@@ -1,9 +1,10 @@
 import sqlite3
 from models.product import Product, Category
+from database.path_helper import get_db_path
 
 class ProductManager:
-    def __init__(self, db_path=r"C:\Users\omar sayed\Desktop\E-Commerce\ecommerce.db"):
-        self.db_path = db_path
+    def __init__(self):
+        self.db_path = get_db_path()
 
     def connect(self):
         conn = sqlite3.connect(self.db_path)
