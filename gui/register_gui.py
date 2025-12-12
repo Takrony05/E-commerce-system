@@ -3,7 +3,7 @@ from PIL import Image, ImageTk
 from pathlib import Path
 from database.path_helper import get_db_path
 from controllers.Register_manager import register_user
-
+from tkinter import messagebox
 
 ctk.set_appearance_mode("light")
 
@@ -108,7 +108,7 @@ class RegisterApp:
         # الاكونت
         self.acc_entry = ctk.CTkEntry(
             self.register_frame,
-            placeholder_text="Enter your account",
+            placeholder_text="Enter your e-mail",
             **entry_style
         )
         self.acc_entry.pack(pady=10)
@@ -146,23 +146,27 @@ class RegisterApp:
         ).pack()
 
     def signup_action(self):
-        customer_name = self.acc_entry.get()             
+        customer_name = self.name_entry.get()             
         user_email = self.acc_entry.get() 
         password = self.pass_entry.get()
         confirm_password = self.confirm_entry.get()
 
         if not user_email or not password or not confirm_password or not customer_name:
-            print("Error: Please fill in all fields.")
+            messagebox.showerror("Error", "Please fill in all fields.")
             return
 
         if password != confirm_password:
-            print("Error: Passwords do not match.")
+            messagebox.showerror("Error", "Passwords do not match.")
             return
         
+        if user_email.count('@') != 1 or user_email.startswith('@') or user_email.endswith('@') or "@ejust.edu.eg" not in user_email:
+            messagebox.showerror("Error", "Invalid email format.")
+            return
+
         success = register_user(customer_name, user_email, password, role_id=1)
         
         if success == True:
-            print("Account Added")
+            messagebox.showinfo("Success", "Account Added")
             self.acc_entry.delete(0, ctk.END)
             self.pass_entry.delete(0, ctk.END)
             self.confirm_entry.delete(0, ctk.END)
