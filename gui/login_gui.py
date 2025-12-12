@@ -94,7 +94,7 @@ class LoginApp:
 
         self.acc_entry = ctk.CTkEntry(
             self.login_frame,
-            placeholder_text="Enter your account",
+            placeholder_text="Enter your e-mail",
             **entry_style
         )
         self.acc_entry.pack(pady=(5, 18))
