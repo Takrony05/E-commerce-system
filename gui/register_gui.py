@@ -2,6 +2,36 @@ import customtkinter as ctk
 from PIL import Image, ImageTk
 from pathlib import Path
 
+###############################
+
+import sqlite3
+import hashlib
+from datetime import datetime 
+from pathlib import Path
+
+def register_user(name, email, plain_password, role_id=1):
+    conn = sqlite3.connect(r"c:\Users\omar sayed\Desktop\E-Commerce\ecommerce.db")
+    c = conn.cursor()
+
+    c.execute("SELECT 1 FROM Users WHERE email = ? LIMIT 1", (email,))
+    exist = c.fetchone()
+    if exist:
+        conn.close()
+        print("Email already exists")
+        return False
+         
+    password_hash = hashlib.sha256(plain_password.encode()).hexdigest()
+
+    sql_query = """
+        INSERT INTO Users (name, email, password_hash, role_id) 
+        VALUES (?, ?, ?, ?)
+    """
+
+    c.execute(sql_query, (name, email, password_hash, role_id))
+    conn.commit()
+    return True
+###############################
+
 ctk.set_appearance_mode("light")
 
 class RegisterApp:
@@ -143,16 +173,31 @@ class RegisterApp:
         ).pack()
 
     def signup_action(self):
-        self.customer_name = self.name_entry.get()  # تخزين اسم العميل
-        account = self.acc_entry.get()
+        customer_name = self.acc_entry.get()             
+        user_email = self.acc_entry.get() 
         password = self.pass_entry.get()
-        confirm = self.confirm_entry.get()
+        confirm_password = self.confirm_entry.get()
 
-        print("Name:", self.customer_name)
-        print("Account:", account)
-        print("Password:", password)
-        print("Confirm Password:", confirm)
+        if not user_email or not password or not confirm_password or not customer_name:
+            print("Error: Please fill in all fields.")
+            return
 
+        if password != confirm_password:
+            print("Error: Passwords do not match.")
+            return
+        
+        success = register_user(customer_name, user_email, password, role_id=1)
+        
+        if success == True:
+            print("Account Added")
+            self.acc_entry.delete(0, ctk.END)
+            self.pass_entry.delete(0, ctk.END)
+            self.confirm_entry.delete(0, ctk.END)
+            self.name_entry.delete(0,ctk.END)
+
+            if self.open_login_callback:
+                self.open_login_callback()
+    
     def run(self):
         self.root.mainloop()
 
