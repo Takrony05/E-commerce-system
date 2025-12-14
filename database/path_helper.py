@@ -14,11 +14,11 @@ def get_schema_path(db_filename="schema.sql"):
     return schema_path
 
 def fetch_products():
-    db_path = get_db_path()
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(get_db_path())
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM Products")  # table name
+    cursor.execute("SELECT * FROM products")
     products = cursor.fetchall()
 
     conn.close()
