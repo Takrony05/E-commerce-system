@@ -1,82 +1,209 @@
-import tkinter as tk
-from tkinter import ttk
-from PIL import Image, ImageTk
-import sqlite3
-# AI , AI , AI , AI , AI , AI , AI , AI , AI , AI , AI , AI , AI 
-class ProductsPage(tk.Frame):
-    def __init__(self, parent):
-        super().__init__(parent)
-        self.parent = parent
-        self.configure(bg="#f5f5f5")
-        self.create_ui()
-        self.load_products()
+import customtkinter as ctk
+from PIL import Image
+from pathlib import Path
 
-    def create_ui(self):
-        # عنوان الصفحة
-        title = tk.Label(self, text="Our Products", font=("Arial", 24, "bold"), bg="#f5f5f5")
-        title.pack(pady=20)
+ctk.set_appearance_mode("light")
 
-        # إطار للسكورول
-        container = tk.Frame(self, bg="#f5f5f5")
-        container.pack(fill=tk.BOTH, expand=True)
 
-        # Canvas + Scrollbar
-        canvas = tk.Canvas(container, bg="#f5f5f5", highlightthickness=0)
-        scrollbar = ttk.Scrollbar(container, orient="vertical", command=canvas.yview)
-        self.scrollable_frame = tk.Frame(canvas, bg="#f5f5f5")
+class ProductsUI:
+    def __init__(self, products_list):
+        """
+        products_list:
+        - List جاية من الداتا بيس (دلوقتي Dummy)
+        - عدد العناصر فيها هو اللي بيحدد عدد الصناديق
+        """
+        self.products_list = products_list
 
-        self.scrollable_frame.bind(
-            "<Configure>",
-            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        self.root = ctk.CTk()
+        self.root.title("E-JUST Store - Products")
+        self.root.geometry("1100x700")
+        self.root.resizable(False, False)
+        self.root.configure(fg_color="#f5f5f5")
+
+        self.setup_ui()
+
+    def setup_ui(self):
+        # الخلفيه
+        base_path = Path(__file__).resolve().parent
+        bg_path = base_path / "assets" / "background.jpg"
+
+        if bg_path.exists():
+            bg_image = Image.open(bg_path).resize((1100, 700))
+            self.bg_image = ctk.CTkImage(
+                light_image=bg_image,
+                dark_image=bg_image,
+                size=(1100, 700)
+            )
+            bg_label = ctk.CTkLabel(self.root, image=self.bg_image, text="")
+            bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+            bg_label.lower()
+
+        # العنوان
+        title_frame = ctk.CTkFrame(
+            self.root,
+            height=100,
+            fg_color="#c0392b",
+            corner_radius=0
         )
+        title_frame.place(x=0, y=0, relwidth=1)
+        title_frame.pack_propagate(False)
 
-        canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
-        canvas.configure(yscrollcommand=scrollbar.set)
+        ctk.CTkLabel(
+            title_frame,
+            text="JUST E-pay  |  Products",
+            font=ctk.CTkFont(
+                family="Comic Sans MS",
+                size=40,
+                weight="bold",
+                slant="italic"
+            ),
+            text_color="white"
+        ).place(relx=0.5, rely=0.5, anchor="center")
 
-        canvas.pack(side="left", fill="both", expand=True)
-        scrollbar.pack(side="right", fill="y")
+        # الرئيسيه 
+        main_frame = ctk.CTkFrame(
+            self.root,
+            width=1000,
+            height=560,
+            fg_color="white",
+            corner_radius=25,
+            border_width=4,
+            border_color="#c0392b"
+        )
+        main_frame.place(relx=0.5, rely=0.57, anchor="center")
+        main_frame.pack_propagate(False)
 
-    def load_products(self):
-        # اتصال بقاعدة البيانات
-        conn = sqlite3.connect("database/DataBase.db")
-        cursor = conn.cursor()
+        # اسكرول 
+        self.products_area = ctk.CTkScrollableFrame(
+            main_frame,
+            width=960,
+            height=520,
+            fg_color="white"
+        )
+        self.products_area.pack(pady=15)
 
-        cursor.execute("SELECT id, name, image_path, description FROM products")
-        products = cursor.fetchall()
+        # عدد الصناديق = عدد المنتجات اللي داخلة
+        if not self.products_list:
+            # في حالة مفيش منتجات
+            self.show_empty_message()
+        else:
+            self.render_products()
 
-        # عرض المنتجات
-        for index, product in enumerate(products):
-            pid, name, img_path, desc = product
+    def render_products(self):
+        columns = 3 
 
-            # إطار لكل منتج
-            frame = tk.Frame(self.scrollable_frame, bg="white", bd=2, relief="groove")
-            frame.grid(row=index//3, column=index%3, padx=20, pady=20, sticky="nsew")
+        for index, product in enumerate(self.products_list):
+            row = index // columns
+            column = index % columns
 
-            # صورة المنتج
-            try:
-                img = Image.open(img_path)
-                img = img.resize((150, 150), Image.ANTIALIAS)
-                photo = ImageTk.PhotoImage(img)
-                img_label = tk.Label(frame, image=photo, bg="white")
-                img_label.image = photo  # مهم لحفظ المرجع
-                img_label.pack(pady=10)
-            except:
-                img_label = tk.Label(frame, text="No Image", bg="white")
-                img_label.pack(pady=10)
-
-            # اسم المنتج
-            tk.Label(frame, text=name, font=("Arial", 14, "bold"), bg="white").pack(pady=5)
-
-            # وصف المنتج
-            tk.Label(frame, text=desc, font=("Arial", 10), bg="white", wraplength=180, justify="center").pack(pady=5)
-
-        conn.close()
+            card = self.create_product_card(self.products_area)
+            card.grid(row=row, column=column, padx=20, pady=20)
 
 
-# تشغيل التجربة مباشرة
-if __name__ == "__main__":
-    root = tk.Tk()
-    root.geometry("1000x600")
-    root.title("Products Page")
-    ProductsPage(root).pack(fill="both", expand=True)
-    root.mainloop()
+        # رسالة في حالة مفيش منتجات في الكاتيجوري
+    def show_empty_message(self):
+
+
+        ctk.CTkLabel(
+            self.products_area,
+            text="No products available in this category",
+            font=ctk.CTkFont(size=18, weight="bold"),
+            text_color="#7f8c8d"
+        ).pack(pady=200)
+
+    def create_product_card(self, parent):
+        """
+        صندوق المنتج (UI فقط)
+        كل Card مستقل بذاته
+        """
+        card = ctk.CTkFrame(
+            parent,
+            width=280,
+            height=360,
+            fg_color="white",
+            corner_radius=20,
+            border_width=2,
+            border_color="#c0392b"
+        )
+        card.pack_propagate(False)
+
+        # -------- Product Image Placeholder --------
+        image_placeholder = ctk.CTkFrame(
+            card,
+            width=220,
+            height=150,
+            fg_color="#ecf0f1",
+            corner_radius=12
+        )
+        image_placeholder.pack(pady=(15, 10))
+
+        ctk.CTkLabel(
+            image_placeholder,
+            text="Product Image",
+            text_color="#7f8c8d"
+        ).place(relx=0.5, rely=0.5, anchor="center")
+
+        # -------- Product Name --------
+        product_name = ctk.CTkLabel(
+            card,
+            text=product["name"],
+            font=ctk.CTkFont(size=18, weight="bold"),
+            text_color="#2c3e50",
+            wraplength=240,
+            justify="center"
+        )
+        product_name.pack(pady=(5, 5))
+
+        # -------- Product Description --------
+        product_description = ctk.CTkLabel(
+            card,
+            text=product["description"],,
+            font=ctk.CTkFont(size=13),
+            text_color="#7f8c8d",
+            wraplength=240,
+            justify="center"
+        )
+        product_description.pack(pady=(0, 8))
+
+        # -------- Product Price --------
+        product_price = ctk.CTkLabel(
+            card,
+            text=f"{product['price']} EGP",
+            font=ctk.CTkFont(size=16, weight="bold"),
+            text_color="#c0392b"
+        )
+        product_price.pack(pady=(0, 10))
+
+        # زرار ال cart 
+        # ملحوظه يا شباب ده الي حنربط بيه البادج الاخيره 
+        
+        add_to_cart_btn = ctk.CTkButton(
+            card,
+            text="ADD TO CART",
+            width=200,
+            height=40,
+            corner_radius=20,
+            fg_color="#e74c3c",
+            hover_color="#c0392b",
+            font=ctk.CTkFont(weight="bold"),
+            command=lambda: None  # هيتربط بالـ Cart Logic لاحقًا
+        )
+        add_to_cart_btn.pack(pady=(5, 15))
+
+        return card
+
+    def run(self):
+        self.root.mainloop()
+
+
+# ================= Dummy Run =================
+# if __name__ == "__main__":
+#     # الداتا دي مؤقتة
+#     # Backend هيشيلها ويحط بدلها DB call
+#     dummy_products = [
+#         {}, {}, {}, {}, {}, {}, {} , {} , {}, {}, {}, {}
+#     ]
+
+#     app = ProductsUI(dummy_products)
+#     app.run()
+
