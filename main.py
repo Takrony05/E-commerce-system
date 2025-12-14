@@ -1,11 +1,5 @@
 from controllers.navigation import AppController
-
-if __name__ == "__main__":
-    app = AppController()
-    app.start_login()
-
-# معرفش اي واحده فيهم الصح
-from gui.login import LoginApp
+from gui.login_gui import LoginApp
 
 def open_register():
     print("Open Register Page")
