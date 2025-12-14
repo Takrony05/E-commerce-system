@@ -22,6 +22,16 @@ class ProductManager:
         conn.commit()
         conn.close()
 
+    def add_product2(self, name , desc , price , product_id , category , seller_id):
+        conn = self.connect()
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO Products (name, description, price, product_id, category_id, seller_id)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (name, desc, price , product_id, category, seller_id))
+        conn.commit()
+        conn.close()
+
     def get_all_products(self):
         conn = self.connect()
         cursor = conn.cursor()
