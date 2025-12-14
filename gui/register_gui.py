@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from PIL import Image, ImageTk
 from pathlib import Path
-from database.path_helper import get_db_path
+from utlis.path_helper import get_db_path
 from controllers.Register_manager import register_user
 from tkinter import messagebox
 

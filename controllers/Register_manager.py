@@ -2,7 +2,7 @@ import sqlite3
 import hashlib
 from datetime import datetime 
 from pathlib import Path
-from database.path_helper import get_db_path
+from utlis.path_helper import get_db_path
 
 
 def register_user(name, email, plain_password, role_id=1):

@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from PIL import Image
 from pathlib import Path
-from database.path_helper import fetch_products
+from utlis.path_helper import fetch_products, get_image_path
 
 ctk.set_appearance_mode("light")
 
@@ -114,12 +114,12 @@ class ProductsUI:
         card.pack_propagate(False)
 
         # ---------- Image Placeholder ----------
-        img_path = Path(product["image_path"])
+        img_path = Path(get_image_path(product["image_path"]))
         if img_path.exists():
             img = Image.open(img_path).resize((220, 150))
             img_ctk = ctk.CTkImage(light_image=img, dark_image=img, size=(220, 150))
             label = ctk.CTkLabel(card, image=img_ctk, text="")
-            label.image = img_ctk  # مهم جداً عشان الصورة ماتتفصلش
+            label.image = img_ctk  
             label.pack(pady=(15, 10))
         else:
             ctk.CTkLabel(card, text="No Image", width=220, height=150, fg_color="#ecf0f1").pack(pady=(15, 10))
