@@ -18,32 +18,13 @@ class Category:
         self.name = name
         self.description = description
 
-class Product:
-    def __init__(self, product_id, name, description, price, category_id, seller_id, ):
-        self.product_id = product_id
-        self.name = name
-        self.description = description
-        self.price = price
-        self.category_id = category_id
-        self.seller_id = seller_id
-
-class ProductImage:
-    def __init__(self, image_id, product_id, image_path):
-        self.image_id = image_id
-        self.product_id = product_id
-        self.image_path = image_path
-
-class Inventory:
-    def __init__(self, product_id, quantity=0):
-        self.product_id = product_id
-        self.quantity = quantity
 
 class Cart:
     def __init__(self, cart_id, user_id, created_at=None):
         self.cart_id = cart_id
         self.user_id = user_id
         self.created_at = created_at
-        self.items = []  # list of CartItem
+        self.items = []  
 
 class CartItem:
     def __init__(self, cart_item_id, cart_id, product_id, quantity):
