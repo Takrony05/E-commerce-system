@@ -7,11 +7,6 @@ ctk.set_appearance_mode("light")
 
 class ProductsUI:
     def __init__(self, products_list):
-        """
-        products_list:
-        - List جاية من الداتا بيس (دلوقتي Dummy)
-        - عدد العناصر فيها هو اللي بيحدد عدد الصناديق
-        """
         self.products_list = products_list
 
         self.root = ctk.CTk()
@@ -157,7 +152,7 @@ class ProductsUI:
         # -------- Product Description --------
         product_description = ctk.CTkLabel(
             card,
-            text=product["description"],,
+            text=product["description"],
             font=ctk.CTkFont(size=13),
             text_color="#7f8c8d",
             wraplength=240,
@@ -197,13 +192,13 @@ class ProductsUI:
 
 
 # ================= Dummy Run =================
-# if __name__ == "__main__":
-#     # الداتا دي مؤقتة
-#     # Backend هيشيلها ويحط بدلها DB call
-#     dummy_products = [
-#         {}, {}, {}, {}, {}, {}, {} , {} , {}, {}, {}, {}
-#     ]
+if __name__ == "__main__":
+    # الداتا دي مؤقتة
+    # Backend هيشيلها ويحط بدلها DB call
+    dummy_products = [
+        {}, {}, {}, {}, {}, {}, {} , {} , {}, {}, {}, {}
+    ]
 
-#     app = ProductsUI(dummy_products)
-#     app.run()
+    app = ProductsUI(dummy_products)
+    app.run()
 
