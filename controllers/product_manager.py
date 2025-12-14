@@ -10,28 +10,7 @@ class ProductManager:
         conn = sqlite3.connect(self.db_path)
         # conn.execute("PRAGMA foreign_keys = ON")
         return conn
-
-
-    def add_product(self, product: Product):
-        conn = self.connect()
-        cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO Products (name, description, price, product_id, category_id, seller_id , image_Path)
-            VALUES (?, ?, ?, ?, ?, ? , ?)
-        """, (product.name, product.description, product.price, product.product_id, product.category_id, product.seller_id , product.image_path))
-        conn.commit()
-        conn.close()
-
-    def add_product2(self, name , desc , price , product_id , category , seller_id):
-        conn = self.connect()
-        cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO Products (name, description, price, product_id, category_id, seller_id)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """, (name, desc, price , product_id, category, seller_id))
-        conn.commit()
-        conn.close()
-
+    
     def get_all_products(self):
         conn = self.connect()
         cursor = conn.cursor()
