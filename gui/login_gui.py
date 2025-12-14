@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from PIL import Image, ImageTk
 from pathlib import Path
+from gui.products import ProductsUI
 
 ctk.set_appearance_mode("light")
 
@@ -133,12 +134,29 @@ class LoginApp:
             hover_color="#c0392b",
             font=ctk.CTkFont(size=22, weight="bold"),
             text_color="white",
-            command=lambda: print("Login:", self.acc_entry.get())
+            command=self.login_action
         ).pack(pady=(10, 20))
 
     def go_to_register(self):
         self.open_register_callback()
     
+    def login_action(self):
+        email = self.acc_entry.get()
+        password = self.pass_entry.get()
+
+    
+        if not email or not password:
+            ctk.CTkMessagebox(title="Error", message="Please enter email and password")
+            return
+
+    
+        self.root.destroy()
+
+    
+        app = ProductsUI()
+        app.run()
+
+
     def run(self):
         self.root.mainloop()
 
