@@ -19,7 +19,7 @@ class Category:
         self.description = description
 
 class Product:
-    def __init__(self, product_id, name, description, price, category_id, seller_id, ):
+    def __init__(self, product_id, name, description, price, category_id, seller_id):
         self.product_id = product_id
         self.name = name
         self.description = description
