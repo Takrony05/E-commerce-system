@@ -27,22 +27,11 @@ CREATE TABLE Products (
     category_id    INTEGER,
     seller_id      INTEGER,
     created_at     TEXT DEFAULT CURRENT_TIMESTAMP,
+    image_Path     TEXT NOT NULL 
     FOREIGN KEY (category_id) REFERENCES Categories(category_id),
     FOREIGN KEY (seller_id)   REFERENCES Users(user_id)
 );
 
-CREATE TABLE ProductImages (
-    image_id       INTEGER PRIMARY KEY AUTOINCREMENT,
-    product_id     INTEGER NOT NULL,
-    image_path     TEXT NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES Products(product_id)
-);
-
-CREATE TABLE Inventory (
-    product_id     INTEGER PRIMARY KEY,
-    quantity       INTEGER NOT NULL DEFAULT 0,
-    FOREIGN KEY (product_id) REFERENCES Products(product_id)
-);
 
 CREATE TABLE Cart (
     cart_id        INTEGER PRIMARY KEY AUTOINCREMENT,
