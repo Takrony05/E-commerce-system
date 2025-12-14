@@ -16,9 +16,9 @@ class ProductManager:
         conn = self.connect()
         cursor = conn.cursor()
         cursor.execute("""
-            INSERT INTO Products (name, description, price, product_id, category_id, seller_id)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """, (product.name, product.description, product.price, product.product_id, product.category_id, product.seller_id))
+            INSERT INTO Products (name, description, price, product_id, category_id, seller_id , image_Path)
+            VALUES (?, ?, ?, ?, ?, ? , ?)
+        """, (product.name, product.description, product.price, product.product_id, product.category_id, product.seller_id , product.image_path))
         conn.commit()
         conn.close()
 
