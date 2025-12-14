@@ -27,7 +27,7 @@ CREATE TABLE Products (
     category_id    INTEGER,
     seller_id      INTEGER,
     created_at     TEXT DEFAULT CURRENT_TIMESTAMP,
-    image_Path     TEXT NOT NULL 
+    image_Path     TEXT NOT NULL,
     FOREIGN KEY (category_id) REFERENCES Categories(category_id),
     FOREIGN KEY (seller_id)   REFERENCES Users(user_id)
 );
