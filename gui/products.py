@@ -1,15 +1,15 @@
 import customtkinter as ctk
 from PIL import Image
 from pathlib import Path
-from database.path_helper import fetch_products
+from utlis.path_helper import fetch_products, get_image_path
 
 ctk.set_appearance_mode("light")
 
 
 class ProductsUI:
-    def __init__(self):
+    def __init__(self, user=None):
+        self.user = user
         self.products_list = fetch_products()
-
         self.root = ctk.CTk()
         self.root.title("E-JUST Store - Products")
         self.root.geometry("1100x700")
@@ -114,20 +114,15 @@ class ProductsUI:
         card.pack_propagate(False)
 
         # ---------- Image Placeholder ----------
-        image_placeholder = ctk.CTkFrame(
-            card,
-            width=220,
-            height=150,
-            fg_color="#ecf0f1",
-            corner_radius=12
-        )
-        image_placeholder.pack(pady=(15, 10))
-
-        ctk.CTkLabel(
-            image_placeholder,
-            text="Product Image",
-            text_color="#7f8c8d"
-        ).place(relx=0.5, rely=0.5, anchor="center")
+        img_path = Path(get_image_path(product["image_path"]))
+        if img_path.exists():
+            img = Image.open(img_path).resize((220, 150))
+            img_ctk = ctk.CTkImage(light_image=img, dark_image=img, size=(220, 150))
+            label = ctk.CTkLabel(card, image=img_ctk, text="")
+            label.image = img_ctk  
+            label.pack(pady=(15, 10))
+        else:
+            ctk.CTkLabel(card, text="No Image", width=220, height=150, fg_color="#ecf0f1").pack(pady=(15, 10))
 
         # ---------- Name ----------
         ctk.CTkLabel(
