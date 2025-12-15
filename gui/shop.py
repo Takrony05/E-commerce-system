@@ -4,7 +4,6 @@ from pathlib import Path
 
 ctk.set_appearance_mode("light")
 
-
 class ShopBox(ctk.CTkButton):
     def __init__(self, parent, title, image_path=None, command=None, **kwargs):
         super().__init__(
@@ -24,7 +23,7 @@ class ShopBox(ctk.CTkButton):
 
         content = ctk.CTkFrame(self, fg_color="transparent")
         content.pack(expand=True)
-
+        
         # ---------- Image Placeholder ----------
         self.img_frame = ctk.CTkFrame(
             content,
@@ -101,15 +100,6 @@ class ShopsUI:
         grid_frame = ctk.CTkFrame(main_frame, fg_color="transparent")
         grid_frame.pack(pady=40)
 
-                # -------- Shop 4: All Shops --------
-        self.all_shop_btn = ShopBox(
-            grid_frame,
-            title="All Shops",
-            image_path=None,
-            command=lambda: print("All Shops clicked")
-        )
-        self.all_shop_btn.grid(row=1, column=0, padx=25, pady=25)
-        
         # -------- Shop 1: Flower Shop --------
         self.flower_shop_btn = ShopBox(
             grid_frame,
@@ -137,6 +127,14 @@ class ShopsUI:
         )
         self.cafe_shop_btn.grid(row=0, column=2, padx=25, pady=25)
 
+        # -------- Shop 4: All Shops --------
+        self.all_shop_btn = ShopBox(
+            grid_frame,
+            title="All Shops",
+            image_path=None,
+            command=lambda: print("All Shops clicked")
+        )
+        self.all_shop_btn.grid(row=1, column=0, padx=25, pady=25)
 
         # -------- Shop 5: Halls --------
         self.halls_shop_btn = ShopBox(
