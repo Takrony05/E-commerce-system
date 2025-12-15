@@ -43,8 +43,9 @@ def login_user(email, plain_password):
 
     user = c.fetchone()
     conn.close()
-
+    status = False
     if user:
+        status = True
         return {
             "user_id": user[0],
             "name": user[1],
@@ -52,4 +53,4 @@ def login_user(email, plain_password):
             "role_id": user[3]
         }
 
-    return None
+    return None 

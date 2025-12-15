@@ -3,6 +3,7 @@ from PIL import Image, ImageTk
 from pathlib import Path
 from gui.products import ProductsUI
 from controllers.Register_manager import login_user
+from tkinter import messagebox
 ctk.set_appearance_mode("light")
 
 class LoginApp:
@@ -145,13 +146,13 @@ class LoginApp:
         password = self.pass_entry.get()
 
         if not email or not password:
-            ctk.CTkMessagebox(title="Error", message="Please enter email and password")
+            messagebox.showerror(title="Error", message="Please enter email and password")
             return
 
         user = login_user(email, password)
 
         if not user:
-            ctk.CTkMessagebox(
+            messagebox.showerror(
                 title="Login Failed",
                 message="Invalid email or password"
             )
