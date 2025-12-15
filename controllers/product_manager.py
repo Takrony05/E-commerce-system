@@ -1,6 +1,6 @@
 import sqlite3
 from models.product import Product, Category
-from database.path_helper import get_db_path
+from utlis.path_helper import get_db_path
 
 class ProductManager:
     def __init__(self):
