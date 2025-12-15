@@ -7,9 +7,9 @@ ctk.set_appearance_mode("light")
 
 
 class ProductsUI:
-    def __init__(self):
+    def __init__(self, user=None):
+        self.user = user
         self.products_list = fetch_products()
-
         self.root = ctk.CTk()
         self.root.title("E-JUST Store - Products")
         self.root.geometry("1100x700")
