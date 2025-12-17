@@ -2,12 +2,17 @@ import customtkinter as ctk
 from PIL import Image
 from pathlib import Path
 
+
 ctk.set_appearance_mode("light")
 
 
 class CartUI:
-    def __init__(self, cart_items: list):
-        self.cart_items = cart_items
+    def __init__(self, cart_items=None, user=None):
+        self.cart_items = cart_items if cart_items is not None else []
+        self.user = user
+
+        # للاحتفاظ بالصور
+        self.images = []
 
         self.root = ctk.CTk()
         self.root.title("E-JUST Store | Cart")
@@ -24,6 +29,8 @@ class CartUI:
         self.setup_title()
         self.setup_main_container()
 
+    # ================= BACKGROUND =================
+
     def setup_background(self):
         base_path = Path(__file__).resolve().parent
         bg_path = base_path / "assets" / "background.jpg"
@@ -34,6 +41,8 @@ class CartUI:
             lbl = ctk.CTkLabel(self.root, image=self.bg_image, text="")
             lbl.place(x=0, y=0, relwidth=1, relheight=1)
             lbl.lower()
+
+    # ================= TITLE =================
 
     def setup_title(self):
         title = ctk.CTkFrame(
@@ -56,6 +65,21 @@ class CartUI:
             ),
             text_color="white"
         ).place(relx=0.5, rely=0.5, anchor="center")
+
+        # back to products  (button)
+        ctk.CTkButton(
+        title,
+        text="Back",
+        width=120,
+        height=40,
+        corner_radius=20,
+        fg_color="#34495e",
+        hover_color="#2c3e50",
+        font=ctk.CTkFont(weight="bold"),
+        command=self.back_to_products
+    ).place(x=30, rely=0.5, anchor="w")
+
+    # ================= MAIN =================
 
     def setup_main_container(self):
         main = ctk.CTkFrame(
@@ -93,7 +117,7 @@ class CartUI:
         self.render_cart_items()
         self.render_summary()
 
-    # المشتريات
+    # ================= CART ITEMS =================
 
     def render_cart_items(self):
         for widget in self.cart_area.winfo_children():
@@ -109,7 +133,8 @@ class CartUI:
             return
 
         for item in self.cart_items:
-            self.create_cart_row(item)
+            if item["quantity"] > 0:
+                self.create_cart_row(item)
 
     def create_cart_row(self, item):
         row = ctk.CTkFrame(
@@ -123,32 +148,31 @@ class CartUI:
         row.pack(fill="x", pady=8)
         row.pack_propagate(False)
 
-        ROW_Y = 35  # unified horizontal line # ana msh AI #
+        ROW_Y = 35
 
-        # صور المنتج
-        img_path = Path(item["image_path"])
+        # ---------- IMAGE ----------
+        img_path = Path(item.get("image_path", ""))
         if img_path.exists():
             img = Image.open(img_path).resize((70, 70))
             img_ctk = ctk.CTkImage(img, img, size=(70, 70))
-            lbl = ctk.CTkLabel(row, image=img_ctk, text="")
-            lbl.image = img_ctk
-            lbl.place(x=10, y=10)
+            self.images.append(img_ctk)
+            ctk.CTkLabel(row, image=img_ctk, text="").place(x=10, y=10)
 
-        # الاسم 
+        # ---------- NAME ----------
         ctk.CTkLabel(
             row,
             text=item["name"],
             font=ctk.CTkFont(weight="bold")
         ).place(x=90, y=22)
 
-        # السعؤ
+        # ---------- PRICE ----------
         ctk.CTkLabel(
             row,
             text=f"{item['price']} EGP",
             text_color="#7f8c8d"
         ).place(x=90, y=46)
 
-        # qantity 
+        # ---------- QUANTITY ----------
         qty_frame = ctk.CTkFrame(row, fg_color="transparent")
         qty_frame.place(x=350, y=ROW_Y - 15)
 
@@ -176,7 +200,7 @@ class CartUI:
             command=lambda i=item: self.update_quantity(i, 1)
         ).pack(side="left", padx=4)
 
-        # ---------- Total ----------
+        # ---------- TOTAL ----------
         total = item["price"] * item["quantity"]
         ctk.CTkLabel(
             row,
@@ -190,7 +214,7 @@ class CartUI:
         self.render_cart_items()
         self.render_summary()
 
-    # paymint
+    # ================= SUMMARY =================
 
     def render_summary(self):
         for widget in self.summary_area.winfo_children():
@@ -198,7 +222,7 @@ class CartUI:
 
         ctk.CTkLabel(
             self.summary_area,
-            text="paymint",
+            text="Payment Summary",
             font=ctk.CTkFont(size=20, weight="bold")
         ).pack(pady=20)
 
@@ -247,9 +271,17 @@ class CartUI:
             font=ctk.CTkFont(weight="bold")
         ).pack(padx=20, pady=20, fill="x")
 
+    # ================= RUN =================
 
     def run(self):
         self.root.mainloop()
 
+    def back_to_products(self):
+        from gui.products import ProductsUI   # 👈 هنا فقط
+        self.root.destroy()
+        app = ProductsUI(self.user)
+        app.run()
 
-
+if __name__ == "__main__":
+    app = CartUI([])
+    app.run()

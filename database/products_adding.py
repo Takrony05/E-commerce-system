@@ -58,6 +58,3 @@ class ProductManager:
         
         conn.commit()
         conn.close()
-
-
-
