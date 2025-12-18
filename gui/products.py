@@ -22,8 +22,8 @@ class ProductsUI:
 
         self.root = ctk.CTk()
         self.root.title("E-JUST Store - Products")
-        self.root.geometry("1100x700")
-        self.root.resizable(False, False)
+        self.root.after(0, lambda: self.root.state("zoomed"))
+        self.root.state("zoomed")
         self.root.configure(fg_color="#f5f5f5")
 
         self.setup_ui()
@@ -33,11 +33,11 @@ class ProductsUI:
     def setup_ui(self):
         # ---------- Background ----------
         base_path = Path(__file__).resolve().parent
-        bg_path = base_path / "assets" / "background.jpg"
+        bg_path = base_path / "assets" / "background1.jpg"
 
         if bg_path.exists():
-            bg_image = Image.open(bg_path).resize((1100, 700))
-            self.bg_image = ctk.CTkImage(bg_image, bg_image, size=(1100, 700))
+            bg_image = Image.open(bg_path)
+            self.bg_image = ctk.CTkImage(bg_image, bg_image, size=(self.root.winfo_screenwidth(), self.root.winfo_screenheight()))
             bg_label = ctk.CTkLabel(self.root, image=self.bg_image, text="")
             bg_label.place(x=0, y=0, relwidth=1, relheight=1)
             bg_label.lower()

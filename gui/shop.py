@@ -57,8 +57,8 @@ class ShopsUI:
         self.user = user
         self.root = ctk.CTk()
         self.root.title("JUST E-pay | Shops")
-        self.root.geometry("1100x700")
-        self.root.resizable(False, False)
+        self.root.after(0, lambda: self.root.state("zoomed"))
+        self.root.state("zoomed")
         self.root.configure(fg_color="#f5f5f5")
 
         self.setup_ui()
@@ -73,6 +73,16 @@ class ShopsUI:
         )
         title_frame.place(x=0, y=0, relwidth=1)
         title_frame.pack_propagate(False)
+
+        base_path = Path(__file__).resolve().parent
+        bg_path = base_path / "assets" / "background1.jpg"
+
+        if bg_path.exists():
+            bg_image = Image.open(bg_path)
+            self.bg_image = ctk.CTkImage(bg_image, bg_image, size=(self.root.winfo_screenwidth(), self.root.winfo_screenheight()))
+            bg_label = ctk.CTkLabel(self.root, image=self.bg_image, text="")
+            bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+            bg_label.lower()
 
         ctk.CTkLabel(
             title_frame,

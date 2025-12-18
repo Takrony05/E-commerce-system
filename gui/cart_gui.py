@@ -16,8 +16,8 @@ class CartUI:
 
         self.root = ctk.CTk()
         self.root.title("E-JUST Store | Cart")
-        self.root.geometry("1100x700")
-        self.root.resizable(False, False)
+        self.root.after(0, lambda: self.root.state("zoomed"))
+        self.root.state("zoomed")
         self.root.configure(fg_color="#f5f5f5")
 
         self.setup_ui()
@@ -33,11 +33,11 @@ class CartUI:
 
     def setup_background(self):
         base_path = Path(__file__).resolve().parent
-        bg_path = base_path / "assets" / "background.jpg"
+        bg_path = base_path / "assets" / "background1.jpg"
 
         if bg_path.exists():
-            img = Image.open(bg_path).resize((1100, 700))
-            self.bg_image = ctk.CTkImage(img, img, size=(1100, 700))
+            img = Image.open(bg_path)
+            self.bg_image = ctk.CTkImage(img, img, size=(self.root.winfo_screenwidth(), self.root.winfo_screenheight()))
             lbl = ctk.CTkLabel(self.root, image=self.bg_image, text="")
             lbl.place(x=0, y=0, relwidth=1, relheight=1)
             lbl.lower()

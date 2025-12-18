@@ -12,26 +12,25 @@ class RegisterApp:
         self.open_login_callback = open_login_callback
         self.root = ctk.CTk()
         self.root.title("E-JUST Store - Register")
-        self.root.geometry("900x600")
-        self.root.resizable(False, False)
+        self.root.after(0, lambda: self.root.state("zoomed"))
+        self.root.state("zoomed")
 
         self.setup_background()
         self.setup_ui()
 
     def setup_background(self):
         base_path = Path(__file__).resolve().parent
-        bg_path = base_path / "assets" / "background.jpg"
+        bg_path = base_path / "assets" / "background1.jpg"
 
         if bg_path.exists():
             bg_image_pil = Image.open(bg_path)
-            bg_image_pil = bg_image_pil.resize((900, 600), Image.Resampling.LANCZOS)
+            
 
             self.bg_ctk_image = ctk.CTkImage(
                 light_image=bg_image_pil,
                 dark_image=bg_image_pil,
-                size=(900, 600)
+                size=(self.root.winfo_screenwidth(), self.root.winfo_screenheight())
             )
-
             bg_label = ctk.CTkLabel(self.root, image=self.bg_ctk_image, text="")
             bg_label.place(x=0, y=0, relwidth=1, relheight=1)
             bg_label.lower()
