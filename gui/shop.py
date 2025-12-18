@@ -2,6 +2,8 @@ import customtkinter as ctk
 from PIL import Image
 from pathlib import Path
 
+from gui.products import ProductsUI
+
 ctk.set_appearance_mode("light")
 
 class ShopBox(ctk.CTkButton):
@@ -51,7 +53,8 @@ class ShopBox(ctk.CTkButton):
 
 
 class ShopsUI:
-    def __init__(self):
+    def __init__(self, user=None):
+        self.user = user
         self.root = ctk.CTk()
         self.root.title("JUST E-pay | Shops")
         self.root.geometry("1100x700")
@@ -105,7 +108,7 @@ class ShopsUI:
             grid_frame,
             title="Flower Shop",
             image_path=None,
-            command=lambda: print("Flower Shop clicked")
+            command=lambda: self.open_products(1)
         )
         self.flower_shop_btn.grid(row=0, column=0, padx=25, pady=25)
 
@@ -114,7 +117,7 @@ class ShopsUI:
             grid_frame,
             title="Gift Shop",
             image_path=None,
-            command=lambda: print("Gift Shop clicked")
+            command=lambda: self.open_products(2)
         )
         self.gift_shop_btn.grid(row=0, column=1, padx=25, pady=25)
 
@@ -123,7 +126,7 @@ class ShopsUI:
             grid_frame,
             title="Cafe",
             image_path=None,
-            command=lambda: print("Cafe clicked")
+            command=lambda: self.open_products(3)
         )
         self.cafe_shop_btn.grid(row=0, column=2, padx=25, pady=25)
 
@@ -132,7 +135,7 @@ class ShopsUI:
             grid_frame,
             title="All Shops",
             image_path=None,
-            command=lambda: print("All Shops clicked")
+            command=lambda: self.open_products(None)
         )
         self.all_shop_btn.grid(row=1, column=0, padx=25, pady=25)
 
@@ -141,7 +144,7 @@ class ShopsUI:
             grid_frame,
             title="Halls",
             image_path=None,
-            command=lambda: print("Halls clicked")
+            command=lambda: self.open_products(4)
         )
         self.halls_shop_btn.grid(row=1, column=1, padx=25, pady=25)
 
@@ -150,7 +153,7 @@ class ShopsUI:
             grid_frame,
             title="Super Market",
             image_path=None,
-            command=lambda: print("Super Market clicked")
+            command=lambda: self.open_products(5)
         )
         self.market_shop_btn.grid(row=1, column=2, padx=25, pady=25)
 
@@ -159,9 +162,14 @@ class ShopsUI:
             grid_frame,
             title="Library",
             image_path=None,
-            command=lambda: print("Library clicked")
+            command=lambda: self.open_products(6)
         )
         self.library_shop_btn.grid(row=2, column=1, padx=25, pady=25)
+
+    def open_products(self, category_id):
+        self.root.destroy()
+        app = ProductsUI(self.user, category_id)
+        app.root.mainloop()
 
     def run(self):
         self.root.mainloop()

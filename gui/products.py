@@ -2,20 +2,22 @@ import customtkinter as ctk
 from PIL import Image
 from pathlib import Path
 from utlis.path_helper import fetch_products, get_image_path
-
+from controllers.product_manager import ProductManager
 
 ctk.set_appearance_mode("light")
 
 
 class ProductsUI:
-    def __init__(self, user=None):
+    def __init__(self, user=None , category_id=None):
         self.user = user
-        self.products_list = fetch_products()
-
-        # 🔹 الكارت (مهم جدًا)
+        self.category_id = category_id
+        pm = ProductManager()
+        if category_id:
+            self.products_list = pm.search_products(category_id=category_id)
+        else:
+            self.products_list = pm.get_all_products()
         self.cart_items = []
 
-        # 🔹 للاحتفاظ بالصور
         self.product_images = []
 
         self.root = ctk.CTk()
@@ -136,7 +138,7 @@ class ProductsUI:
         card.pack_propagate(False)
 
         # ---------- Image ----------
-        img_path = Path(get_image_path(product["image_path"]))
+        img_path = Path(get_image_path(product.image_path))
         if img_path.exists():
             img = Image.open(img_path).resize((220, 150))
             img_ctk = ctk.CTkImage(img, img, size=(220, 150))
@@ -154,7 +156,7 @@ class ProductsUI:
         # ---------- Name ----------
         ctk.CTkLabel(
             card,
-            text=product["name"],
+            text=product.name,
             font=ctk.CTkFont(size=18, weight="bold"),
             wraplength=240,
             justify="center"
@@ -163,7 +165,7 @@ class ProductsUI:
         # ---------- Description ----------
         ctk.CTkLabel(
             card,
-            text=product["description"],
+            text=product.description,
             font=ctk.CTkFont(size=13),
             text_color="#7f8c8d",
             wraplength=240,
@@ -173,7 +175,7 @@ class ProductsUI:
         # ---------- Price ----------
         ctk.CTkLabel(
             card,
-            text=f"{product['price']} EGP",
+            text=f"{product.price} EGP",
             font=ctk.CTkFont(size=16, weight="bold"),
             text_color="#c0392b"
         ).pack(pady=(0, 10))

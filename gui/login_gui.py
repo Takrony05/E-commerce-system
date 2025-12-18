@@ -2,6 +2,7 @@ import customtkinter as ctk
 from PIL import Image, ImageTk
 from pathlib import Path
 from gui.products import ProductsUI
+from gui.shop import ShopsUI
 from controllers.Register_manager import login_user
 from tkinter import messagebox
 ctk.set_appearance_mode("light")
@@ -161,7 +162,7 @@ class LoginApp:
         
         self.root.destroy()
 
-        app = ProductsUI(user)   
+        app = ShopsUI(user)   
         app.run()
 
     def run(self):

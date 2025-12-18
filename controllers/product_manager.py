@@ -17,12 +17,12 @@ class ProductManager:
         cursor.execute("SELECT * FROM Products")
         rows = cursor.fetchall()
         conn.close()
-        return [Product(*row) for row in rows]
+        return [Product(row[1], row[2], row[3], row[4], row[5], row[7]) for row in rows]
 
     def get_product_by_id(self, product_id):
         conn = self.connect()
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM Products WHERE id = ?", (product_id,))
+        cursor.execute("SELECT * FROM Products WHERE product_id = ?", (product_id,))
         row = cursor.fetchone()
         conn.close()
         if row:
@@ -35,7 +35,7 @@ class ProductManager:
         cursor.execute("""
             UPDATE Products
             SET name = ?, description = ?, price = ?, stock = ?, category_id = ?, seller_id = ?
-            WHERE id = ?
+            WHERE product_id = ?
         """, (product.name, product.description, product.price, product.stock, product.category_id, product.seller_id, product.id))
         conn.commit()
         conn.close()
@@ -66,7 +66,7 @@ class ProductManager:
         cursor.execute(query, params)
         rows = cursor.fetchall()
         conn.close()
-        return [Product(*row) for row in rows]
+        return [Product(row[1], row[2], row[3], row[4], row[5], row[7]) for row in rows]
 
     # -------------------------
     # Category functions
