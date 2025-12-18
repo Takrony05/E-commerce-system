@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from PIL import Image
 from pathlib import Path
-
+from utlis.path_helper import get_image_path as gip
 from gui.products import ProductsUI
 
 ctk.set_appearance_mode("light")
@@ -25,8 +25,8 @@ class ShopBox(ctk.CTkButton):
 
         content = ctk.CTkFrame(self, fg_color="transparent")
         content.pack(expand=True)
-        
-        # ---------- Image Placeholder ----------
+
+        # ---------- Image Frame ----------
         self.img_frame = ctk.CTkFrame(
             content,
             width=200,
@@ -36,11 +36,27 @@ class ShopBox(ctk.CTkButton):
         )
         self.img_frame.pack(pady=(15, 10))
 
-        ctk.CTkLabel(
-            self.img_frame,
-            text="Shop Image",
-            text_color="#7f8c8d"
-        ).place(relx=0.5, rely=0.5, anchor="center")
+        # ---------- Load Image if provided ----------
+        if image_path:
+            img_path = Path(image_path)
+            if img_path.exists():
+                img = Image.open(img_path).resize((200, 100))
+                self.img_ctk = ctk.CTkImage(light_image=img, dark_image=img, size=(200, 100))
+                img_label = ctk.CTkLabel(self.img_frame, image=self.img_ctk, text="")
+                img_label.image = self.img_ctk  # Keep reference
+                img_label.pack(expand=True)
+            else:
+                ctk.CTkLabel(
+                    self.img_frame,
+                    text="Image not found",
+                    text_color="#e74c3c"
+                ).place(relx=0.5, rely=0.5, anchor="center")
+        else:
+            ctk.CTkLabel(
+                self.img_frame,
+                text="Shop Image",
+                text_color="#7f8c8d"
+            ).place(relx=0.5, rely=0.5, anchor="center")
 
         # ---------- Shop Title ----------
         self.title_label = ctk.CTkLabel(
@@ -117,16 +133,16 @@ class ShopsUI:
         self.flower_shop_btn = ShopBox(
             grid_frame,
             title="Flower Shop",
-            image_path=None,
+            image_path=gip("Flower shop.jpeg"),
             command=lambda: self.open_products(1)
         )
-        self.flower_shop_btn.grid(row=0, column=0, padx=25, pady=25)
+        self.flower_shop_btn.grid(row=1, column=0, padx=25, pady=25)
 
         # -------- Shop 2: Gift Shop --------
         self.gift_shop_btn = ShopBox(
             grid_frame,
             title="Gift Shop",
-            image_path=None,
+            image_path=gip("Gift Shop.jpeg"),
             command=lambda: self.open_products(2)
         )
         self.gift_shop_btn.grid(row=0, column=1, padx=25, pady=25)
@@ -135,7 +151,7 @@ class ShopsUI:
         self.cafe_shop_btn = ShopBox(
             grid_frame,
             title="Cafe",
-            image_path=None,
+            image_path=gip("Flavora Cafe.jpeg"),
             command=lambda: self.open_products(3)
         )
         self.cafe_shop_btn.grid(row=0, column=2, padx=25, pady=25)
@@ -144,16 +160,16 @@ class ShopsUI:
         self.all_shop_btn = ShopBox(
             grid_frame,
             title="All Shops",
-            image_path=None,
+            image_path=gip("all shops.jpg"),
             command=lambda: self.open_products(None)
         )
-        self.all_shop_btn.grid(row=1, column=0, padx=25, pady=25)
+        self.all_shop_btn.grid(row=0, column=0, padx=25, pady=25)
 
         # -------- Shop 5: Halls --------
         self.halls_shop_btn = ShopBox(
             grid_frame,
             title="Halls",
-            image_path=None,
+            image_path=gip("Red Hall.jpeg"),
             command=lambda: self.open_products(4)
         )
         self.halls_shop_btn.grid(row=1, column=1, padx=25, pady=25)
@@ -162,7 +178,7 @@ class ShopsUI:
         self.market_shop_btn = ShopBox(
             grid_frame,
             title="Super Market",
-            image_path=None,
+            image_path=gip("Supermarket.jpeg"),
             command=lambda: self.open_products(5)
         )
         self.market_shop_btn.grid(row=1, column=2, padx=25, pady=25)
