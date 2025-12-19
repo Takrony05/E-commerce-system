@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from PIL import Image
+from PIL import Image, ImageTk
 from pathlib import Path
 from utlis.path_helper import get_db_path
 from controllers.Register_manager import register_user
@@ -7,11 +7,9 @@ from tkinter import messagebox
 
 ctk.set_appearance_mode("light")
 
-
 class RegisterApp:
     def __init__(self, open_login_callback=None):
         self.open_login_callback = open_login_callback
-
         self.root = ctk.CTk()
         self.root.title("E-JUST Store - Register")
         self.root.after(0, lambda: self.root.state("zoomed"))
@@ -20,31 +18,29 @@ class RegisterApp:
         self.setup_background()
         self.setup_ui()
 
-    # ================= Background =================
     def setup_background(self):
         base_path = Path(__file__).resolve().parent
         bg_path = base_path / "assets" / "background1.jpg"
 
         if bg_path.exists():
             bg_image_pil = Image.open(bg_path)
+            
 
             self.bg_ctk_image = ctk.CTkImage(
                 light_image=bg_image_pil,
                 dark_image=bg_image_pil,
-                size=(
-                    self.root.winfo_screenwidth(),
-                    self.root.winfo_screenheight()
-                )
+                size=(self.root.winfo_screenwidth(), self.root.winfo_screenheight())
             )
-
             bg_label = ctk.CTkLabel(self.root, image=self.bg_ctk_image, text="")
             bg_label.place(x=0, y=0, relwidth=1, relheight=1)
             bg_label.lower()
+
         else:
             print(f"Error: Background file not found at {bg_path}")
 
     def setup_ui(self):
-        # ---------- Title Bar ----------
+
+        # العنوان
         title_frame = ctk.CTkFrame(
             self.root,
             fg_color="#c0392b",
@@ -56,7 +52,7 @@ class RegisterApp:
 
         ctk.CTkLabel(
             title_frame,
-            text="JUST E-Buy ",
+            text="JUST E-Buy",
             font=ctk.CTkFont(
                 family="Comic Sans MS",
                 size=56,
@@ -66,22 +62,20 @@ class RegisterApp:
             text_color="white"
         ).place(relx=0.5, rely=0.5, anchor="center")
 
-        # ---------- Register Box ----------
+        # White Register Frame
         self.register_frame = ctk.CTkFrame(
             self.root,
-            width=390,   
-            height=540,       
+            width=520,
+            height=500,
             fg_color="white",
             corner_radius=28,
             border_width=5,
             border_color="#e74c3c"
         )
-
-        # perfectly centered
-        self.register_frame.place(relx=0.5, rely=0.53, anchor="center")
+        self.register_frame.place(relx=0.5, rely=0.58, anchor="center")
         self.register_frame.pack_propagate(False)
 
-        # ---------- REGISTER Title ----------
+        # REGISTER Title
         ctk.CTkLabel(
             self.register_frame,
             text="REGISTER",
@@ -89,10 +83,10 @@ class RegisterApp:
             text_color="#2c3e50"
         ).pack(pady=(25, 15))
 
-        # ---------- Entry Style ----------
+        #Entry Style 
         entry_style = {
-            "width": 340,
-            "height": 52,
+            "width": 320,
+            "height": 50,
             "corner_radius": 20,
             "fg_color": "white",
             "border_width": 3,
@@ -102,7 +96,7 @@ class RegisterApp:
             "text_color": "#2c3e50"
         }
 
-        # ---------- Name ----------
+        #الاسم
         self.name_entry = ctk.CTkEntry(
             self.register_frame,
             placeholder_text="Enter your name",
@@ -110,7 +104,7 @@ class RegisterApp:
         )
         self.name_entry.pack(pady=10)
 
-        # ---------- Email ----------
+        # الاكونت
         self.acc_entry = ctk.CTkEntry(
             self.register_frame,
             placeholder_text="Enter your e-mail",
@@ -118,7 +112,7 @@ class RegisterApp:
         )
         self.acc_entry.pack(pady=10)
 
-        # ---------- Password ----------
+        #الباسورد
         self.pass_entry = ctk.CTkEntry(
             self.register_frame,
             placeholder_text="Enter your password",
@@ -127,7 +121,7 @@ class RegisterApp:
         )
         self.pass_entry.pack(pady=10)
 
-        # ---------- Confirm Password ----------
+        # الباسووورد تاكيد 
         self.confirm_entry = ctk.CTkEntry(
             self.register_frame,
             placeholder_text="Confirm password",
@@ -136,12 +130,11 @@ class RegisterApp:
         )
         self.confirm_entry.pack(pady=(10, 25))
 
-        # ---------- Sign Up Button ----------
-
-        self.signup_btn = ctk.CTkButton(
+        # sign_up button
+        ctk.CTkButton(
             self.register_frame,
             text="SIGN UP",
-            width=270,
+            width=250,
             height=60,
             corner_radius=35,
             fg_color="#e74c3c",
@@ -149,24 +142,11 @@ class RegisterApp:
             font=ctk.CTkFont(size=26, weight="bold"),
             text_color="white",
             command=self.signup_action
-        )
-        self.signup_btn.pack()
+        ).pack()
 
-        # Smooth hover animation bindings
-        self.signup_btn.bind(
-            "<Enter>",
-            lambda e: self.animate_button(self.signup_btn, 285, 65)
-        )
-        self.signup_btn.bind(
-            "<Leave>",
-            lambda e: self.animate_button(self.signup_btn, 270, 60)
-        )
-
-
-    # ================= LOGIC =================
     def signup_action(self):
-        customer_name = self.name_entry.get()
-        user_email = self.acc_entry.get()
+        customer_name = self.name_entry.get()             
+        user_email = self.acc_entry.get() 
         password = self.pass_entry.get()
         confirm_password = self.confirm_entry.get()
 
@@ -177,33 +157,25 @@ class RegisterApp:
         if password != confirm_password:
             messagebox.showerror("Error", "Passwords do not match.")
             return
-
-        if (
-            user_email.count('@') != 1
-            or user_email.startswith('@')
-            or user_email.endswith('@')
-            or "@ejust.edu.eg" not in user_email
-        ):
+        
+        if user_email.count('@') != 1 or user_email.startswith('@') or user_email.endswith('@') or "@ejust.edu.eg" not in user_email:
             messagebox.showerror("Error", "Invalid email format.")
             return
 
         success = register_user(customer_name, user_email, password, role_id=1)
-
-        if success is True:
+        
+        if success == True:
             messagebox.showinfo("Success", "Account Added")
-
             self.acc_entry.delete(0, ctk.END)
             self.pass_entry.delete(0, ctk.END)
             self.confirm_entry.delete(0, ctk.END)
-            self.name_entry.delete(0, ctk.END)
+            self.name_entry.delete(0,ctk.END)
 
             if self.open_login_callback:
                 self.open_login_callback()
-
+    
     def run(self):
         self.root.mainloop()
-    
-    
 
 
 if __name__ == "__main__":

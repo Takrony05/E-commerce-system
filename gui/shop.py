@@ -1,13 +1,11 @@
 import customtkinter as ctk
-from PIL import Image, ImageDraw
+from PIL import Image
 from pathlib import Path
 from utlis.path_helper import get_image_path as gip
 from gui.products import ProductsUI
 
 ctk.set_appearance_mode("light")
 
-
-# ================= SHOP BOX =================
 class ShopBox(ctk.CTkButton):
     def __init__(self, parent, title, image_path=None, command=None, **kwargs):
         super().__init__(
@@ -20,62 +18,47 @@ class ShopBox(ctk.CTkButton):
             border_width=2,
             border_color="#c0392b",
             text="",
-            command=command,
+            command=command if command else lambda: print(f"{title} clicked"),
             **kwargs
         )
         self.pack_propagate(False)
 
-        # ---------- Content ----------
         content = ctk.CTkFrame(self, fg_color="transparent")
-        content.pack(fill="both", expand=True)
+        content.pack(expand=True)
 
         # ---------- Image Frame ----------
         self.img_frame = ctk.CTkFrame(
             content,
-            width=210,
+            width=200,
             height=100,
             fg_color="#ecf0f1",
-            corner_radius=14
+            corner_radius=12
         )
         self.img_frame.pack(pady=(15, 10))
-        self.img_frame.pack_propagate(False)
 
-        # ---------- Image ----------
+        # ---------- Load Image if provided ----------
         if image_path:
             img_path = Path(image_path)
             if img_path.exists():
-                img = Image.open(img_path).convert("RGBA")
-                img = img.resize((210, 100), Image.LANCZOS)
-                img = self.round_image(img, radius=14)
-
-                self.img_ctk = ctk.CTkImage(img, img, size=(210, 100))
-                img_label = ctk.CTkLabel(
-                    self.img_frame,
-                    image=self.img_ctk,
-                    text=""
-                )
+                img = Image.open(img_path).resize((200, 100))
+                self.img_ctk = ctk.CTkImage(light_image=img, dark_image=img, size=(200, 100))
+                img_label = ctk.CTkLabel(self.img_frame, image=self.img_ctk, text="")
+                img_label.image = self.img_ctk  # Keep reference
                 img_label.pack(expand=True)
-
-                self.bind_all_children(img_label)
-
             else:
-                lbl = ctk.CTkLabel(
+                ctk.CTkLabel(
                     self.img_frame,
                     text="Image not found",
                     text_color="#e74c3c"
-                )
-                lbl.place(relx=0.5, rely=0.5, anchor="center")
-                self.bind_all_children(lbl)
+                ).place(relx=0.5, rely=0.5, anchor="center")
         else:
-            lbl = ctk.CTkLabel(
+            ctk.CTkLabel(
                 self.img_frame,
                 text="Shop Image",
                 text_color="#7f8c8d"
-            )
-            lbl.place(relx=0.5, rely=0.5, anchor="center")
-            self.bind_all_children(lbl)
+            ).place(relx=0.5, rely=0.5, anchor="center")
 
-        # ---------- Title ----------
+        # ---------- Shop Title ----------
         self.title_label = ctk.CTkLabel(
             content,
             text=title,
@@ -84,29 +67,7 @@ class ShopBox(ctk.CTkButton):
         )
         self.title_label.pack(pady=(0, 15))
 
-        self.bind_all_children(content)
-        self.bind_all_children(self.img_frame)
-        self.bind_all_children(self.title_label)
 
-    # ---------- Rounded Image ----------
-    def round_image(self, img, radius):
-        mask = Image.new("L", img.size, 0)
-        draw = ImageDraw.Draw(mask)
-        draw.rounded_rectangle(
-            (0, 0, img.size[0], img.size[1]),
-            radius=radius,
-            fill=255
-        )
-        img.putalpha(mask)
-        return img
-
-    # ---------- Make All Clickable ----------
-    def bind_all_children(self, widget):
-        widget.bind("<Button-1>", lambda e: self.invoke())
-        widget.bind("<Enter>", lambda e: self.configure(cursor="hand2"))
-
-
-# ================= SHOPS UI =================
 class ShopsUI:
     def __init__(self, user=None):
         self.user = user
@@ -119,7 +80,7 @@ class ShopsUI:
         self.setup_ui()
 
     def setup_ui(self):
-        # ---------- Title Bar ----------
+        # ================= Title Bar =================
         title_frame = ctk.CTkFrame(
             self.root,
             height=100,
@@ -134,11 +95,7 @@ class ShopsUI:
 
         if bg_path.exists():
             bg_image = Image.open(bg_path)
-            self.bg_image = ctk.CTkImage(
-                bg_image,
-                bg_image,
-                size=(self.root.winfo_screenwidth(), self.root.winfo_screenheight())
-            )
+            self.bg_image = ctk.CTkImage(bg_image, bg_image, size=(self.root.winfo_screenwidth(), self.root.winfo_screenheight()))
             bg_label = ctk.CTkLabel(self.root, image=self.bg_image, text="")
             bg_label.place(x=0, y=0, relwidth=1, relheight=1)
             bg_label.lower()
@@ -155,7 +112,7 @@ class ShopsUI:
             text_color="white"
         ).place(relx=0.5, rely=0.5, anchor="center")
 
-        # ---------- Main ----------
+        # ================= Main Container =================
         main_frame = ctk.CTkFrame(
             self.root,
             width=1000,
@@ -165,41 +122,85 @@ class ShopsUI:
             border_width=4,
             border_color="#c0392b"
         )
-        main_frame.place(relx=0.5, rely=0.53, anchor="center")
+        main_frame.place(relx=0.5, rely=0.58, anchor="center")
         main_frame.pack_propagate(False)
 
         # ================= Shops Grid =================
         grid_frame = ctk.CTkFrame(main_frame, fg_color="transparent")
         grid_frame.pack(pady=40)
 
-        ShopBox(grid_frame, "All Shops", gip("all shops.jpg"),
-                command=lambda: self.open_products(None)).grid(row=0, column=0, padx=25, pady=25)
+        # -------- Shop 1: Flower Shop --------
+        self.flower_shop_btn = ShopBox(
+            grid_frame,
+            title="Flower Shop",
+            image_path=gip("Flower shop.jpeg"),
+            command=lambda: self.open_products(1)
+        )
+        self.flower_shop_btn.grid(row=1, column=0, padx=25, pady=25)
 
-        ShopBox(grid_frame, "Gift Shop", gip("Gift Shop.jpeg"),
-                command=lambda: self.open_products(2)).grid(row=0, column=1, padx=25, pady=25)
+        # -------- Shop 2: Gift Shop --------
+        self.gift_shop_btn = ShopBox(
+            grid_frame,
+            title="Gift Shop",
+            image_path=gip("Gift Shop.jpeg"),
+            command=lambda: self.open_products(2)
+        )
+        self.gift_shop_btn.grid(row=0, column=1, padx=25, pady=25)
 
-        ShopBox(grid_frame, "Cafe", gip("Flavora Cafe.jpeg"),
-                command=lambda: self.open_products(3)).grid(row=0, column=2, padx=25, pady=25)
+        # -------- Shop 3: Cafe --------
+        self.cafe_shop_btn = ShopBox(
+            grid_frame,
+            title="Cafe",
+            image_path=gip("Flavora Cafe.jpeg"),
+            command=lambda: self.open_products(3)
+        )
+        self.cafe_shop_btn.grid(row=0, column=2, padx=25, pady=25)
 
-        ShopBox(grid_frame, "Flower Shop", gip("Flower shop.jpeg"),
-                command=lambda: self.open_products(1)).grid(row=1, column=0, padx=25, pady=25)
+        # -------- Shop 4: All Shops --------
+        self.all_shop_btn = ShopBox(
+            grid_frame,
+            title="All Shops",
+            image_path=gip("all shops.jpg"),
+            command=lambda: self.open_products(None)
+        )
+        self.all_shop_btn.grid(row=0, column=0, padx=25, pady=25)
 
-        ShopBox(grid_frame, "Halls", gip("Red Hall.jpeg"),
-                command=lambda: self.open_products(4)).grid(row=1, column=1, padx=25, pady=25)
+        # -------- Shop 5: Halls --------
+        self.halls_shop_btn = ShopBox(
+            grid_frame,
+            title="Halls",
+            image_path=gip("Red Hall.jpeg"),
+            command=lambda: self.open_products(4)
+        )
+        self.halls_shop_btn.grid(row=1, column=1, padx=25, pady=25)
 
-        ShopBox(grid_frame, "Super Market", gip("Supermarket.jpeg"),
-                command=lambda: self.open_products(5)).grid(row=1, column=2, padx=25, pady=25)
+        # -------- Shop 6: Super Market --------
+        self.market_shop_btn = ShopBox(
+            grid_frame,
+            title="Super Market",
+            image_path=gip("Supermarket.jpeg"),
+            command=lambda: self.open_products(5)
+        )
+        self.market_shop_btn.grid(row=1, column=2, padx=25, pady=25)
 
-        ShopBox(grid_frame, "Library", None,
-                command=lambda: self.open_products(6)).grid(row=2, column=1, padx=25, pady=25)
+        # -------- Shop 7: Library --------
+        self.library_shop_btn = ShopBox(
+            grid_frame,
+            title="Library",
+            image_path=None,
+            command=lambda: self.open_products(6)
+        )
+        self.library_shop_btn.grid(row=2, column=1, padx=25, pady=25)
 
     def open_products(self, category_id):
         self.root.destroy()
-        ProductsUI(self.user, category_id).run()
+        app = ProductsUI(self.user, category_id)
+        app.root.mainloop()
 
     def run(self):
         self.root.mainloop()
 
 
 if __name__ == "__main__":
-    ShopsUI().run()
+    app = ShopsUI()
+    app.run()

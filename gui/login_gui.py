@@ -7,49 +7,38 @@ from controllers.Register_manager import login_user
 from tkinter import messagebox
 ctk.set_appearance_mode("light")
 
-import customtkinter as ctk
-from PIL import Image
-from pathlib import Path
-
-ctk.set_appearance_mode("light")
-
-
 class LoginApp:
     def __init__(self, open_register_callback):
         self.open_register_callback = open_register_callback
-
         self.root = ctk.CTk()
         self.root.title("E-JUST Store - Login")
         self.root.after(0, lambda: self.root.state("zoomed"))
         self.root.state("zoomed")
         self.root.configure(fg_color="#f5f5f5")
-
         self.setup_ui()
-
+    
     def setup_ui(self):
-        # ================= Background =================
+        #الخلفيه
         base_path = Path(__file__).resolve().parent
         bg_path = base_path / "assets" / "background1.jpg"
 
         if bg_path.exists():
-            bg_image_pil = Image.open(bg_path)
-
+            bg_image_pil = Image.open(bg_path) 
+            
+            
             self.bg_ctk_image = ctk.CTkImage(
-                light_image=bg_image_pil,
+                light_image=bg_image_pil, 
                 dark_image=bg_image_pil,
-                size=(
-                    self.root.winfo_screenwidth(),
-                    self.root.winfo_screenheight()
-                )
+                size=(self.root.winfo_screenwidth(), self.root.winfo_screenheight()) 
             )
 
             bg_label = ctk.CTkLabel(self.root, image=self.bg_ctk_image, text="")
             bg_label.place(x=0, y=0, relwidth=1, relheight=1)
             bg_label.lower()
+
         else:
             print(f"Error: Background file not found at {bg_path}")
-
-        # ================= Title Bar =================
+        # ---------------- Title Bar ----------------
         title_frame = ctk.CTkFrame(
             self.root,
             fg_color="#c0392b",
@@ -61,7 +50,7 @@ class LoginApp:
 
         ctk.CTkLabel(
             title_frame,
-            text="JUST E-Buy",
+            text="JUST E-Buy  ",
             font=ctk.CTkFont(
                 family="Comic Sans MS",
                 size=56,
@@ -71,19 +60,18 @@ class LoginApp:
             text_color="white"
         ).place(relx=0.5, rely=0.5, anchor="center")
 
-        # ================= Login Box =================
+        # لصندوق
         self.login_frame = ctk.CTkFrame(
             self.root,
-            width=390,        
-            height=480,       
+            width=390,
+            height=440,
             fg_color="white",
             corner_radius=25,
             border_width=4,
             border_color="#c0392b"
         )
 
-        # perfectly centered
-        self.login_frame.place(relx=0.5, rely=0.5, anchor="center")
+        self.login_frame.place(relx=0.5, rely=0.60, anchor="center")
         self.login_frame.pack_propagate(False)
 
         #login
