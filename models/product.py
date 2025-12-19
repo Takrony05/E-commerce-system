@@ -1,11 +1,13 @@
 class Product:
-    def __init__(self, name, description, price, category_id, seller_id,image_Path):
+    def __init__(self, product_id, name, description, price, category_id, seller_id, created_at, image_path):
+        self.product_id = product_id
         self.name = name
         self.description = description
         self.price = price
         self.category_id = category_id
         self.seller_id = seller_id
-        self.image_path = image_Path
+        self.created_at = created_at
+        self.image_path = image_path
         
 class Role:
     def __init__(self, role_id, role_name):

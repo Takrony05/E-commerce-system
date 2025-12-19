@@ -3,12 +3,14 @@ from PIL import Image
 from pathlib import Path
 from utlis.path_helper import fetch_products, get_image_path
 from controllers.product_manager import ProductManager
+from controllers.CartManager import CartManager
+from models.product import Product
 
 ctk.set_appearance_mode("light")
 
 
 class ProductsUI:
-    def __init__(self, user=None , category_id=None):
+    def __init__(self, user=None, category_id=None):
         self.user = user
         self.category_id = category_id
         pm = ProductManager()
@@ -16,7 +18,6 @@ class ProductsUI:
             self.products_list = pm.search_products(category_id=category_id)
         else:
             self.products_list = pm.get_all_products()
-        self.cart_items = []
 
         self.product_images = []
 
@@ -76,6 +77,7 @@ class ProductsUI:
             font=ctk.CTkFont(weight="bold"),
             command=self.open_cart
         ).place(relx=0.9, rely=0.5, anchor="center")
+        
 
         # ---------- Main Container ----------
         main_frame = ctk.CTkFrame(
@@ -102,7 +104,13 @@ class ProductsUI:
             self.show_empty_message()
         else:
             self.render_products()
+    # ================= CART LOGIC =================
 
+    def add_to_cart(self,montag: Product):
+        cart_manager = CartManager()
+        cart_manager.add_to_cart(self.user["user_id"] ,montag.product_id)
+
+        print(f"{montag.name} added to cart")
     # ================= PRODUCTS =================
 
     def render_products(self):
@@ -195,29 +203,17 @@ class ProductsUI:
 
         return card
 
-    # ================= CART LOGIC =================
-
-    def add_to_cart(self, product):
-        for item in self.cart_items:
-            if item["id"] == product["id"]:
-                item["quantity"] += 1
-                return
-
-        self.cart_items.append({
-            "id": product["id"],
-            "name": product["name"],
-            "price": product["price"],
-            "quantity": 1,
-            "image_path": product["image_path"]
-        })
+    
 
 
     
     def open_cart(self):
-        from gui.cart_gui import CartUI   # 👈 هنا فقط
+        from gui.cart_gui import CartUI
         self.root.destroy()
-        app = CartUI(self.cart_items, self.user)
+        app = CartUI(self.user)
         app.run()
+
+
 
 
 

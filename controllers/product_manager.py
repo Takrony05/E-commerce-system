@@ -16,8 +16,9 @@ class ProductManager:
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM Products")
         rows = cursor.fetchall()
+        print(rows)
         conn.close()
-        return [Product(row[1], row[2], row[3], row[4], row[5], row[7]) for row in rows]
+        return [Product(row[0],row[1], row[2], row[3], row[4], row[5], row[6] , row[7]) for row in rows]
 
     def get_product_by_id(self, product_id):
         conn = self.connect()
@@ -47,26 +48,19 @@ class ProductManager:
         conn.commit()
         conn.close()
 
-    def search_products(self, name=None, category_id=None, price_range=None):
-        conn = self.connect()
-        cursor = conn.cursor()
-        query = "SELECT * FROM Products WHERE 1=1"
-        params = []
+    def search_products(self, category_id):
+        with self.connect() as conn:
+            cursor = conn.cursor()
+            print(category_id)
+            if category_id is None:
+                cursor.execute("SELECT * FROM Products")
+            else:
+                cursor.execute("SELECT * FROM Products WHERE category_id = ?", (category_id,))
+                
+            return [Product(*row) for row in cursor.fetchall()]
 
-        if name:
-            query += " AND name LIKE ?"
-            params.append(f"%{name}%")
-        if category_id:
-            query += " AND category_id = ?"
-            params.append(category_id)
-        if price_range:
-            query += " AND price BETWEEN ? AND ?"
-            params.extend(price_range)
 
-        cursor.execute(query, params)
-        rows = cursor.fetchall()
-        conn.close()
-        return [Product(row[1], row[2], row[3], row[4], row[5], row[7]) for row in rows]
+
 
     # -------------------------
     # Category functions

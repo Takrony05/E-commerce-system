@@ -1,17 +1,22 @@
 import customtkinter as ctk
 from PIL import Image
 from pathlib import Path
-
+from controllers.CartManager import CartManager
 
 ctk.set_appearance_mode("light")
 
 
 class CartUI:
-    def __init__(self, cart_items=None, user=None):
-        self.cart_items = cart_items if cart_items is not None else []
+    def __init__(self, user):
         self.user = user
+        self.cart_manager = CartManager()
 
-        # للاحتفاظ بالصور
+        self.cart_id = self.cart_manager.get_or_create_cart(
+            self.user["user_id"]
+        )
+
+        self.cart_items = self.fetch_cart_items()
+
         self.images = []
 
         self.root = ctk.CTk()
@@ -23,6 +28,20 @@ class CartUI:
         self.setup_ui()
 
     # ================= MAIN UI =================
+    def fetch_cart_items(self):
+        items = self.cart_manager.get_cart_items(self.cart_id)
+
+        cart_items = []
+        for product_id, name, price, quantity, image_path in items:
+            cart_items.append({
+                "product_id": product_id,
+                "name": name,
+                "price": price,
+                "quantity": quantity,
+                "image_path": image_path
+            })
+
+        return cart_items
 
     def setup_ui(self):
         self.setup_background()
@@ -210,7 +229,18 @@ class CartUI:
         ).place(x=520, y=ROW_Y)
 
     def update_quantity(self, item, delta):
-        item["quantity"] = max(0, item["quantity"] + delta)
+        new_qty = item["quantity"] + delta
+
+        if new_qty <= 0:
+            self.cart_manager.remove_item(
+                self.cart_id, item["product_id"]
+            )
+        else:
+            self.cart_manager.update_quantity(
+                self.cart_id, item["product_id"], new_qty
+            )
+
+        self.cart_items = self.fetch_cart_items()
         self.render_cart_items()
         self.render_summary()
 

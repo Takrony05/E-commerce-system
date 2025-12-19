@@ -3,6 +3,7 @@ from PIL import Image
 from pathlib import Path
 from utlis.path_helper import get_image_path as gip
 from gui.products import ProductsUI
+from models.product import Product
 
 ctk.set_appearance_mode("light")
 
@@ -195,7 +196,7 @@ class ShopsUI:
     def open_products(self, category_id):
         self.root.destroy()
         app = ProductsUI(self.user, category_id)
-        app.root.mainloop()
+        app.run()
 
     def run(self):
         self.root.mainloop()
