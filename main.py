@@ -7,8 +7,6 @@ if __name__ == "__main__":
 
 
 
-
-
 """
     pro =ProductManager()
     pro.add_all_products()

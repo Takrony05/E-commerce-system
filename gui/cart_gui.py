@@ -277,7 +277,7 @@ class CartUI:
         self.root.mainloop()
 
     def back_to_products(self):
-        from gui.products import ProductsUI   # 👈 هنا فقط
+        from gui.products import ProductsUI
         self.root.destroy()
         app = ProductsUI(self.user)
         app.run()
