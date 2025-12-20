@@ -36,6 +36,7 @@ class ShopBox(ctk.CTkButton):
             corner_radius=12
         )
         self.img_frame.pack(pady=(15, 10))
+        self._bind_click(self.img_frame)
 
         # ---------- Load Image if provided ----------
         if image_path:
@@ -46,6 +47,7 @@ class ShopBox(ctk.CTkButton):
                 img_label = ctk.CTkLabel(self.img_frame, image=self.img_ctk, text="")
                 img_label.image = self.img_ctk  # Keep reference
                 img_label.pack(expand=True)
+                self._bind_click(img_label)
             else:
                 ctk.CTkLabel(
                     self.img_frame,
@@ -67,6 +69,10 @@ class ShopBox(ctk.CTkButton):
             text_color="#2c3e50"
         )
         self.title_label.pack(pady=(0, 15))
+        self._bind_click(self.title_label)
+    
+    def _bind_click(self, widget):
+        widget.bind("<Button-1>", lambda e: self.invoke())
 
 
 class ShopsUI:
