@@ -143,7 +143,7 @@ class LoginApp:
         self.open_register_callback()
     
     def login_action(self):
-        email = self.acc_entry.get().strip()
+        email = self.acc_entry.get().strip().lower()
         password = self.pass_entry.get()
 
         if not email or not password:

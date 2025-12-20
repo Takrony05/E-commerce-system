@@ -146,7 +146,7 @@ class RegisterApp:
 
     def signup_action(self):
         customer_name = self.name_entry.get()             
-        user_email = self.acc_entry.get() 
+        user_email = self.acc_entry.get().lower() 
         password = self.pass_entry.get()
         confirm_password = self.confirm_entry.get()
 
