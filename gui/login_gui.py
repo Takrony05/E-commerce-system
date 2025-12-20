@@ -109,6 +109,8 @@ class LoginApp:
             **entry_style
         )
         self.pass_entry.pack(pady=(0, 30))
+        self.pass_entry.bind("<Return>", lambda event: self.login_action())
+
 
         # ---------------- Register Button ----------------
         ctk.CTkButton(
