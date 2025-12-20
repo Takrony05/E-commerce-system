@@ -40,6 +40,18 @@ class ProductManager:
         Product("Camera", "Digital SLR camera", 500, 1, 1, "camera.jpg"),
         Product("Book", "Bestselling novel", 20, 4, 3, "book.jpg"),
         Product("Desk Lamp", "LED desk lamp", 30, 5, 2, "desklamp.jpg"),
+        #########################################################################
+        Product("Coffe Shake", "Iced coffee", 20, 5, 1, "Coffe shake.jpg"),
+        Product("V7 cola", "Egyptian Cola Drink", 25, 5, 1, "V7 cola.jpg"),
+        Product("V7 pink lemonade", "Egyptian pink lemonade Drink", 25, 5, 1, "V7 pink lemonade.jpg"),
+        Product("Friday Ice cream", "Vanilla ice cream", 15, 5, 1, "Friday icecream.jpg"),
+        Product("Trident", "Gum", 2, 5, 1, "Trident.jpg"),
+        Product("Bake Sticks", "Oven cooked sticks", 10, 5, 1, "Bake Sticks.jpg"),
+        Product("balance", "Protein chips", 15, 5, 1, "balance.jpg"),
+        Product("biskrem", "Cocoa Biscuits", 10, 5, 1, "biskrem.jpg"),
+        Product("Water", "Mineral Water", 10, 5, 1, "Water.jpg"),
+        Product("Domty Sandwich", "Filled sandwich", 15, 5, 1, "Domty.jpg"),
+        Product("Doritos", "Tortilla chips", 10, 5, 1, "Doritos.jpg"),
     ]
 
     def add_all_products(self):
