@@ -63,7 +63,7 @@ class LoginApp:
         # لصندوق
         self.login_frame = ctk.CTkFrame(
             self.root,
-            width=390,
+            width=370,
             height=440,
             fg_color="white",
             corner_radius=25,
@@ -71,7 +71,7 @@ class LoginApp:
             border_color="#c0392b"
         )
 
-        self.login_frame.place(relx=0.5, rely=0.60, anchor="center")
+        self.login_frame.place(relx=0.5, rely=0.5, anchor="center")
         self.login_frame.pack_propagate(False)
 
         #login

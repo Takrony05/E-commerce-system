@@ -65,14 +65,14 @@ class RegisterApp:
         # White Register Frame
         self.register_frame = ctk.CTkFrame(
             self.root,
-            width=520,
-            height=500,
+            width=390,
+            height=540,
             fg_color="white",
             corner_radius=28,
             border_width=5,
             border_color="#e74c3c"
         )
-        self.register_frame.place(relx=0.5, rely=0.58, anchor="center")
+        self.register_frame.place(relx=0.5, rely=0.53, anchor="center")
         self.register_frame.pack_propagate(False)
 
         # REGISTER Title
