@@ -254,7 +254,7 @@ class ProductsUI:
 
         ctk.CTkLabel(
             popup,
-            text=f"✅ {product_name} has been added to your cart.\n\nDo you want to go to the cart?",
+            text=f" {product_name} has been added to your cart.\n\nDo you want to go to the cart?",
             font=ctk.CTkFont(size=14, weight="bold"),
             justify="center"
         ).pack(pady=25)
@@ -279,7 +279,6 @@ class ProductsUI:
             command=lambda: [popup.destroy(), self.open_cart()]
         ).grid(row=0, column=1, padx=10)
 
-    # Auto-close after 5 seconds
         popup.after(5000, popup.destroy)
 
 

@@ -40,7 +40,7 @@ class ProductManager:
         Product("Camera", "Digital SLR camera", 500, 1, 1, "camera.jpg"),
         Product("Book", "Bestselling novel", 20, 4, 3, "book.jpg"),
         Product("Desk Lamp", "LED desk lamp", 30, 5, 2, "desklamp.jpg"),
-        #########################################################################
+        ######################################################################### ADNAN
         Product("Coffe Shake", "Iced coffee", 20, 5, 1, "Coffe shake.jpg"),
         Product("V7 cola", "Egyptian Cola Drink", 25, 5, 1, "V7 cola.jpg"),
         Product("V7 pink lemonade", "Egyptian pink lemonade Drink", 25, 5, 1, "V7 pink lemonade.jpg"),
@@ -52,6 +52,23 @@ class ProductManager:
         Product("Water", "Mineral Water", 10, 5, 1, "Water.jpg"),
         Product("Domty Sandwich", "Filled sandwich", 15, 5, 1, "Domty.jpg"),
         Product("Doritos", "Tortilla chips", 10, 5, 1, "Doritos.jpg"),
+        ####################################################################### Mohamed Ashraf
+        Product("Gentian", "Gentian flower", 50, 1, 1, "Gentian flower.JPEG"),
+        Product("Geranium", "Bright clustered blooms", 50, 1, 1, "Geranium.JPEG"),
+        Product("Begonia", "waxy colorful petals", 50, 1, 1, "Begonia.JPEG"),
+        Product("Celosia", "feathery flame-like", 50, 1, 1, "Celosia.JPEG"),
+        Product("Roses", "classic romantic blooms", 50, 1, 1, "Roses.JPEG"),
+        Product("Phlox", "dense fragrant clusters", 50, 1, 1, "Phlox.JPEG"),
+        Product("Gladiolus", "tall elegant spikes", 50, 1, 1, "Gladiolus.JPEG"),
+        Product("Flowers", "mixed garden flowers", 50, 1, 1, "Ward.JPEG"),
+        Product("Amaryllis", "large trumpet flowers", 50, 1, 1, "Amaryllis.JPEG"),
+        Product("Daisy", "simple cheerful petals", 50, 1, 1, "Daisy.JPEG"),
+        Product("Daffodil", "bright yellow trumpet", 50, 1, 1, "Daffodil.JPEG"),
+        Product("Lily", "elegant fragrant blooms", 50, 1, 1, "Lily.JPEG"),
+        Product("Peony", "lush full petals", 50, 1, 1, "Peony.JPEG"),
+        Product("Tulip", "smooth cup-shaped", 50, 1, 1, "Tulip.JPEG"),
+        Product("Rose Garden", "layered rose petals", 50, 1, 1, "Rose Garden.JPEG"),
+
     ]
 
     def add_all_products(self):
