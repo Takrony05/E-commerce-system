@@ -236,6 +236,55 @@ class ProductsUI:
         cart_manager.add_to_cart(self.user["user_id"], montag.product_id)
         print(f"{montag.name} added to cart")
 
+        self.show_added_to_cart_popup(montag.name)
+    
+
+    def show_added_to_cart_popup(self, product_name):
+        popup = ctk.CTkToplevel(self.root)
+        popup.title("Added to Cart")
+        popup.geometry("420x180")
+        popup.resizable(False, False)
+        popup.grab_set()  
+
+    
+        x = self.root.winfo_x() + (self.root.winfo_width() // 2) - 210
+        y = self.root.winfo_y() + (self.root.winfo_height() // 2) - 90
+        popup.geometry(f"+{x}+{y}")
+
+
+        ctk.CTkLabel(
+            popup,
+            text=f"✅ {product_name} has been added to your cart.\n\nDo you want to go to the cart?",
+            font=ctk.CTkFont(size=14, weight="bold"),
+            justify="center"
+        ).pack(pady=25)
+
+        button_frame = ctk.CTkFrame(popup, fg_color="transparent")
+        button_frame.pack(pady=10)
+
+    
+        ctk.CTkButton(
+            button_frame,
+            text="Continue Shopping",
+            width=160,
+            command=popup.destroy
+        ).grid(row=0, column=0, padx=10)
+
+        ctk.CTkButton(
+            button_frame,
+            text="Go to Cart",
+            width=120,
+            fg_color="#27ae60",
+            hover_color="#1e8449",
+            command=lambda: [popup.destroy(), self.open_cart()]
+        ).grid(row=0, column=1, padx=10)
+
+    # Auto-close after 5 seconds
+        popup.after(5000, popup.destroy)
+
+
+
+
     def open_cart(self):
         from gui.cart_gui import CartUI
         self.root.destroy()
