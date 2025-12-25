@@ -4,7 +4,7 @@ from pathlib import Path
 from controllers.CartManager import CartManager
 import tkinter.messagebox as msgbox
 ctk.set_appearance_mode("light")
-
+from utlis.path_helper import get_image_path as gip
 
 class CartUI:
     def __init__(self, user):
@@ -24,7 +24,7 @@ class CartUI:
         self.root.after(0, lambda: self.root.state("zoomed"))
         self.root.state("zoomed")
         self.root.configure(fg_color="#f5f5f5")
-
+        self.root.iconbitmap(gip("icon.ico"))
         self.setup_ui()
 
     # ================= MAIN UI =================

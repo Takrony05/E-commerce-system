@@ -1,8 +1,7 @@
 import customtkinter as ctk
 from PIL import Image, ImageDraw
 from pathlib import Path
-
-from utlis.path_helper import get_image_path
+from utlis.path_helper import get_image_path as gip
 from controllers.product_manager import ProductManager
 from controllers.CartManager import CartManager
 from models.product import Product
@@ -27,7 +26,7 @@ class ProductsUI:
         self.root.title("E-JUST Store - Products")
         self.root.after(0, lambda: self.root.state("zoomed"))
         self.root.configure(fg_color="#f5f5f5")
-
+        self.root.iconbitmap(gip("icon.ico"))
         self.setup_ui()
 
     # ================= UI =================
@@ -166,7 +165,7 @@ class ProductsUI:
         card.pack_propagate(False)
 
         # ---------- Image ----------
-        img_path = Path(get_image_path(product.image_path))
+        img_path = Path(gip(product.image_path))
         if img_path.exists():
             img = Image.open(img_path).convert("RGBA")
             img = img.resize((200, 135), Image.LANCZOS)

@@ -5,6 +5,7 @@ from gui.products import ProductsUI
 from gui.shop import ShopsUI
 from controllers.Register_manager import login_user
 from tkinter import messagebox
+from utlis.path_helper import get_image_path as gip
 ctk.set_appearance_mode("light")
 
 class LoginApp:
@@ -15,6 +16,7 @@ class LoginApp:
         self.root.after(0, lambda: self.root.state("zoomed"))
         self.root.state("zoomed")
         self.root.configure(fg_color="#f5f5f5")
+        self.root.iconbitmap(gip("icon.ico"))
         self.setup_ui()
     
     def setup_ui(self):

@@ -83,7 +83,7 @@ class ShopsUI:
         self.root.after(0, lambda: self.root.state("zoomed"))
         self.root.state("zoomed")
         self.root.configure(fg_color="#f5f5f5")
-
+        self.root.iconbitmap(gip("icon.ico"))
         self.setup_ui()
 
     def setup_ui(self):
