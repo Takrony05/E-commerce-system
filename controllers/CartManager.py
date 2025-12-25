@@ -103,4 +103,12 @@ class CartManager:
         conn.commit()
         conn.close()
 
-
+    def remove_all_item(self, cart_id):
+        conn = self.connect()
+        cursor = conn.cursor()
+        cursor.execute("""
+            DELETE FROM CartItems
+            WHERE cart_id = ?
+        """, (cart_id,))
+        conn.commit()
+        conn.close()
