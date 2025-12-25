@@ -50,7 +50,7 @@ class LoginApp:
 
         ctk.CTkLabel(
             title_frame,
-            text="JUST E-Buy  ",
+            text="JUST E-BUY  ",
             font=ctk.CTkFont(
                 family="Comic Sans MS",
                 size=56,
@@ -77,7 +77,7 @@ class LoginApp:
         #login
         ctk.CTkLabel(
             self.login_frame,
-            text="LOGIN",
+            text="SIGN IN",
             font=ctk.CTkFont("Arial Black", 38),
             text_color="#2c3e50"
         ).pack(pady=(35, 28))
@@ -130,7 +130,7 @@ class LoginApp:
 
         ctk.CTkButton(
             self.login_frame,
-            text="LOGIN",
+            text="SIGN IN",
             width=300,
             height=60,
             corner_radius=32,
@@ -156,7 +156,7 @@ class LoginApp:
 
         if not user:
             messagebox.showerror(
-                title="Login Failed",
+                title="Log in Failed",
                 message="Invalid email or password"
             )
             return

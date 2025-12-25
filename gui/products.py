@@ -263,23 +263,30 @@ class ProductsUI:
         button_frame.pack(pady=10)
 
     
+
+# Continue Shopping button
         ctk.CTkButton(
             button_frame,
             text="Continue Shopping",
-            width=160,
+            width=140,
+            fg_color="#bdc3c7",
+            text_color="black",
+            hover_color="#aeb6bf",
             command=popup.destroy
         ).grid(row=0, column=0, padx=10)
+
+
 
         ctk.CTkButton(
             button_frame,
             text="Go to Cart",
             width=120,
-            fg_color="#27ae60",
-            hover_color="#1e8449",
+            fg_color="#e74c3c",
+            hover_color="#e74c3c",
             command=lambda: [popup.destroy(), self.open_cart()]
         ).grid(row=0, column=1, padx=10)
 
-        popup.after(5000, popup.destroy)
+        popup.after(10000, popup.destroy)
 
 
 
