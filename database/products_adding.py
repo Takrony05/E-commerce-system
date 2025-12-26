@@ -52,14 +52,6 @@ class ProductManager:
         Product("Water", "Mineral Water", 10, 5, 1, "Water.jpg"),
         Product("Domty Sandwich", "Filled sandwich", 15, 5, 1, "Domty.jpg"),
         Product("Doritos", "Tortilla chips", 10, 5, 1, "Doritos.jpg"),
-<<<<<<< HEAD
-        Product("Zabado", "Rayeb milk", 25, 5, 1, "zabado.jpg"),
-        Product("Suntop", "Juice", 20, 5, 1, "suntop.jpg"),
-        Product("Gummy Bears", "Gummy Bears", 30, 5, 1, "gummy bears.jpg"),
-        Product("Molto", "filled croissant", 30, 5, 1, "molto.jpg"),
-        Product("Snickers", "Chocolate with caramel and nuts", 35, 5, 1, "snickers.jpg"),
-        Product("Twix", "Chocolate with biscuits and caramel", 35, 5, 1, "twix.jpg"),
-=======
         ####################################################################### Mohamed Ashraf
         Product("Gentian", "Gentian flower", 50, 1, 1, "Gentian flower.JPEG"),
         Product("Geranium", "Bright clustered blooms", 50, 1, 1, "Geranium.JPEG"),
@@ -77,7 +69,6 @@ class ProductManager:
         Product("Tulip", "smooth cup-shaped", 50, 1, 1, "Tulip.JPEG"),
         Product("Rose Garden", "layered rose petals", 50, 1, 1, "Rose Garden.JPEG"),
 
->>>>>>> 4c2e674e20c8994bf794411402d9d978b0f87571
     ]
 
     def add_all_products(self):
