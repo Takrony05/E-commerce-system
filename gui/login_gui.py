@@ -5,6 +5,7 @@ from gui.products import ProductsUI
 from gui.shop import ShopsUI
 from controllers.Register_manager import login_user
 from tkinter import messagebox
+from utlis.path_helper import get_image_path as gip
 ctk.set_appearance_mode("light")
 
 class LoginApp:
@@ -15,6 +16,7 @@ class LoginApp:
         self.root.after(0, lambda: self.root.state("zoomed"))
         self.root.state("zoomed")
         self.root.configure(fg_color="#f5f5f5")
+        self.root.iconbitmap(gip("icon.ico"))
         self.setup_ui()
     
     def setup_ui(self):
@@ -50,7 +52,7 @@ class LoginApp:
 
         ctk.CTkLabel(
             title_frame,
-            text="JUST E-Buy  ",
+            text="JUST E-BUY  ",
             font=ctk.CTkFont(
                 family="Comic Sans MS",
                 size=56,
@@ -77,7 +79,7 @@ class LoginApp:
         #login
         ctk.CTkLabel(
             self.login_frame,
-            text="LOGIN",
+            text="SIGN IN",
             font=ctk.CTkFont("Arial Black", 38),
             text_color="#2c3e50"
         ).pack(pady=(35, 28))
@@ -109,6 +111,8 @@ class LoginApp:
             **entry_style
         )
         self.pass_entry.pack(pady=(0, 30))
+        self.pass_entry.bind("<Return>", lambda event: self.login_action())
+
 
         # ---------------- Register Button ----------------
         ctk.CTkButton(
@@ -128,7 +132,7 @@ class LoginApp:
 
         ctk.CTkButton(
             self.login_frame,
-            text="LOGIN",
+            text="SIGN IN",
             width=300,
             height=60,
             corner_radius=32,
@@ -143,7 +147,7 @@ class LoginApp:
         self.open_register_callback()
     
     def login_action(self):
-        email = self.acc_entry.get().strip()
+        email = self.acc_entry.get().strip().lower()
         password = self.pass_entry.get()
 
         if not email or not password:
@@ -154,7 +158,7 @@ class LoginApp:
 
         if not user:
             messagebox.showerror(
-                title="Login Failed",
+                title="Log in Failed",
                 message="Invalid email or password"
             )
             return

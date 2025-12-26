@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from PIL import Image, ImageTk
 from pathlib import Path
+from utlis.path_helper import get_image_path as gip
 from utlis.path_helper import get_db_path
 from controllers.Register_manager import register_user
 from tkinter import messagebox
@@ -14,7 +15,7 @@ class RegisterApp:
         self.root.title("E-JUST Store - Register")
         self.root.after(0, lambda: self.root.state("zoomed"))
         self.root.state("zoomed")
-
+        self.root.iconbitmap(gip("icon.ico"))
         self.setup_background()
         self.setup_ui()
 
@@ -146,7 +147,7 @@ class RegisterApp:
 
     def signup_action(self):
         customer_name = self.name_entry.get()             
-        user_email = self.acc_entry.get() 
+        user_email = self.acc_entry.get().lower() 
         password = self.pass_entry.get()
         confirm_password = self.confirm_entry.get()
 

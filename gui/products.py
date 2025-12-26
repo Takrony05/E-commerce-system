@@ -1,8 +1,7 @@
 import customtkinter as ctk
 from PIL import Image, ImageDraw
 from pathlib import Path
-
-from utlis.path_helper import get_image_path
+from utlis.path_helper import get_image_path as gip
 from controllers.product_manager import ProductManager
 from controllers.CartManager import CartManager
 from models.product import Product
@@ -27,7 +26,7 @@ class ProductsUI:
         self.root.title("E-JUST Store - Products")
         self.root.after(0, lambda: self.root.state("zoomed"))
         self.root.configure(fg_color="#f5f5f5")
-
+        self.root.iconbitmap(gip("icon.ico"))
         self.setup_ui()
 
     # ================= UI =================
@@ -166,7 +165,7 @@ class ProductsUI:
         card.pack_propagate(False)
 
         # ---------- Image ----------
-        img_path = Path(get_image_path(product.image_path))
+        img_path = Path(gip(product.image_path))
         if img_path.exists():
             img = Image.open(img_path).convert("RGBA")
             img = img.resize((200, 135), Image.LANCZOS)
@@ -235,6 +234,61 @@ class ProductsUI:
         cart_manager = CartManager()
         cart_manager.add_to_cart(self.user["user_id"], montag.product_id)
         print(f"{montag.name} added to cart")
+
+        self.show_added_to_cart_popup(montag.name)
+    
+
+    def show_added_to_cart_popup(self, product_name):
+        popup = ctk.CTkToplevel(self.root)
+        popup.title("Added to Cart")
+        popup.geometry("420x180")
+        popup.resizable(False, False)
+        popup.grab_set()  
+
+    
+        x = self.root.winfo_x() + (self.root.winfo_width() // 2) - 210
+        y = self.root.winfo_y() + (self.root.winfo_height() // 2) - 90
+        popup.geometry(f"+{x}+{y}")
+
+
+        ctk.CTkLabel(
+            popup,
+            text=f" {product_name} has been added to your cart.\n\nDo you want to go to the cart?",
+            font=ctk.CTkFont(size=14, weight="bold"),
+            justify="center"
+        ).pack(pady=25)
+
+        button_frame = ctk.CTkFrame(popup, fg_color="transparent")
+        button_frame.pack(pady=10)
+
+    
+
+# Continue Shopping button
+        ctk.CTkButton(
+            button_frame,
+            text="Continue Shopping",
+            width=140,
+            fg_color="#bdc3c7",
+            text_color="black",
+            hover_color="#aeb6bf",
+            command=popup.destroy
+        ).grid(row=0, column=0, padx=10)
+
+
+
+        ctk.CTkButton(
+            button_frame,
+            text="Go to Cart",
+            width=120,
+            fg_color="#e74c3c",
+            hover_color="#e74c3c",
+            command=lambda: [popup.destroy(), self.open_cart()]
+        ).grid(row=0, column=1, padx=10)
+
+        popup.after(10000, popup.destroy)
+
+
+
 
     def open_cart(self):
         from gui.cart_gui import CartUI

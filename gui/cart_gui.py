@@ -2,9 +2,9 @@ import customtkinter as ctk
 from PIL import Image
 from pathlib import Path
 from controllers.CartManager import CartManager
-
+import tkinter.messagebox as msgbox
 ctk.set_appearance_mode("light")
-
+from utlis.path_helper import get_image_path as gip
 
 class CartUI:
     def __init__(self, user):
@@ -24,7 +24,7 @@ class CartUI:
         self.root.after(0, lambda: self.root.state("zoomed"))
         self.root.state("zoomed")
         self.root.configure(fg_color="#f5f5f5")
-
+        self.root.iconbitmap(gip("icon.ico"))
         self.setup_ui()
 
     # ================= MAIN UI =================
@@ -291,15 +291,29 @@ class CartUI:
             text_color="#c0392b"
         ).pack(pady=10)
 
-        ctk.CTkButton(
+        self.checkout_btn = ctk.CTkButton(
             self.summary_area,
             text="Checkout Now",
             height=45,
             corner_radius=25,
             fg_color="#e74c3c",
             hover_color="#c0392b",
-            font=ctk.CTkFont(weight="bold")
-        ).pack(padx=20, pady=20, fill="x")
+            font=ctk.CTkFont(weight="bold"),
+            command=self.confirm_checkout
+        )
+        self.checkout_btn.pack(padx=20, pady=20, fill="x")
+
+    def confirm_checkout(self):
+        answer = msgbox.askyesno(
+            "Confirm Checkout",
+            "Are you sure you want to checkout?\nThis will clear your cart."
+        )
+        if answer:
+            self.cart_manager.remove_all_item(self.cart_id)
+            self.cart_items = self.cart_manager.get_cart_items(self.cart_id)
+            self.render_summary()
+            self.render_cart_items()
+            msgbox.showinfo("Checkout Successful", "Thank you for your purchase!")
 
     # ================= RUN =================
 
@@ -307,7 +321,7 @@ class CartUI:
         self.root.mainloop()
 
     def back_to_products(self):
-        from gui.products import ProductsUI   # 👈 هنا فقط
+        from gui.products import ProductsUI   
         self.root.destroy()
         app = ProductsUI(self.user)
         app.run()
