@@ -32,15 +32,6 @@ class ProductManager:
         conn.close()
 
     products = [
-        Product("Coffee", "Great coffee", 2, 2, 2, "download.jpg"),
-        Product("Tea", "Refreshing tea", 1.5, 2, 2, "tea.jpg"),
-        Product("Laptop", "High performance laptop", 1200, 1, 1, "laptop.jpg"),
-        Product("Smartphone", "Latest model smartphone", 800, 1, 1, "smartphone.jpg"),
-        Product("Headphones", "Noise-cancelling headphones", 150, 3, 1, "headphones.jpg"),
-        Product("Camera", "Digital SLR camera", 500, 1, 1, "camera.jpg"),
-        Product("Book", "Bestselling novel", 20, 4, 3, "book.jpg"),
-        Product("Desk Lamp", "LED desk lamp", 30, 5, 2, "desklamp.jpg"),
-        ######################################################################### ADNAN
         Product("Coffe Shake", "Iced coffee", 20, 5, 1, "Coffe shake.jpg"),
         Product("V7 cola", "Egyptian Cola Drink", 25, 5, 1, "V7 cola.jpg"),
         Product("V7 pink lemonade", "Egyptian pink lemonade Drink", 25, 5, 1, "V7 pink lemonade.jpg"),
@@ -58,7 +49,6 @@ class ProductManager:
         Product("Molto", "filled croissant", 30, 5, 1, "molto.jpg"),
         Product("Snickers", "Chocolate with caramel and nuts", 35, 5, 1, "snickers.jpg"),
         Product("Twix", "Chocolate with biscuits and caramel", 35, 5, 1, "twix.jpg"),
-        ####################################################################### Mohamed Ashraf
         Product("Gentian", "Gentian flower", 50, 1, 1, "Gentian flower.JPEG"),
         Product("Geranium", "Bright clustered blooms", 50, 1, 1, "Geranium.JPEG"),
         Product("Begonia", "waxy colorful petals", 50, 1, 1, "Begonia.JPEG"),
@@ -74,7 +64,6 @@ class ProductManager:
         Product("Peony", "lush full petals", 50, 1, 1, "Peony.JPEG"),
         Product("Tulip", "smooth cup-shaped", 50, 1, 1, "Tulip.JPEG"),
         Product("Rose Garden", "layered rose petals", 50, 1, 1, "Rose Garden.JPEG"),
-        ########################################################################### Ahmed El-Shazly
         Product("Nescafe", "Warm caffeine", 25, 4, 1, "Nescafe.jpg"),
         Product("Latte", "Espresso with Skimmed milk", 30, 4, 1, "Latte.jpg"),
         Product("Mocha", "Espresso with Chocolate", 30, 4, 1, "Mocha.jpg"),
@@ -101,6 +90,7 @@ class ProductManager:
         Product("Chocolate Milk Shake", "Cold chocolate shake", 40, 3, 1, "Chocolate MilkShake.jpg"),
         Product("Indomie", "Instant Noodles", 15, 3, 1, "Indomie.jpg"),
         Product("Hot Chocolate", "Hot cocoa", 30, 3, 1, "Hot Chocolate.jpg"),
+        Product("Omar", "3am alnas", 15, 1, 1, "omar.jpeg"),
     ]
 
     def add_all_products(self):
