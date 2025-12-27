@@ -1,9 +1,15 @@
-# 🛒 E-Commerce System
+<p align="center">
+  <img src="logo.jpeg" alt="Just E-Shop Logo" width="180">
+</p>
 
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-blue)
-![Version](https://img.shields.io/badge/version-1.0.0-orange)
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
+<h1 align="center">🛒 E-Commerce System</h1>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/build-passing-brightgreen">
+  <img src="https://img.shields.io/badge/license-MIT-blue">
+  <img src="https://img.shields.io/badge/version-1.0.0-orange">
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen">
+</p>
 
 > A simple and user-friendly **E-commerce system** built with Python, allowing users to browse products, manage a shopping cart, and authenticate securely.
 
@@ -82,3 +88,4 @@ E-commerce-system/
 ├── ecommerce.db        # SQLite database
 ├── main.py             # Application entry point
 └── README.md
+
