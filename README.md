@@ -73,7 +73,20 @@ The project focuses on **clean architecture**, **modular design**, and **core e-
 - Git & GitHub
 
 ---
+## 🎯 Project Goals
 
+- Practice clean Python architecture 
+- Implement real-world e-commerce logic
+- Learn SQLite integration
+- Build a desktop GUI application
+---
+## ▶️ Quick Start
+
+```bash
+git clone https://github.com/yourusername/E-commerce-system.git
+cd E-commerce-system
+python main.py
+```
 ## 📂 System Architecture
 
 ```text
@@ -86,6 +99,8 @@ E-commerce-system/
 ├── ecommerce.db        # SQLite database
 ├── main.py             # Application entry point
 └── README.md
+```
+
 
 
 
