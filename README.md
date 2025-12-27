@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo.jpeg" alt="Just E-Shop Logo" width="180">
+  <img src="gui/assets/logo.jpeg" alt="Just E-Shop Logo" width="180">
 </p>
 
 <h1 align="center">🛒 E-Commerce System</h1>
@@ -86,6 +86,7 @@ E-commerce-system/
 ├── ecommerce.db        # SQLite database
 ├── main.py             # Application entry point
 └── README.md
+
 
 
 
