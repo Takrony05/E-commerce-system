@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icon.ico" alt="Just E-Shop Logo" width="180">
+  <img src="https://raw.githubusercontent.com/Takrony05/E-commerce-system/main/logo.jpeg" width="180">
 </p>
 
 <h1 align="center">🛒 E-Commerce System</h1>
@@ -10,8 +10,7 @@
   <img src="https://img.shields.io/badge/version-1.0.0-orange">
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen">
 </p>
-
-> A simple and user-friendly **E-commerce system** built with Python, allowing users to browse products, manage a shopping cart, and authenticate securely.
+ built with Python, allowing users to browse products, manage a shopping cart, and authenticate securely.
 
 ---
 
@@ -88,4 +87,5 @@ E-commerce-system/
 ├── ecommerce.db        # SQLite database
 ├── main.py             # Application entry point
 └── README.md
+
 
