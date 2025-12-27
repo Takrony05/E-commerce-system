@@ -90,7 +90,7 @@ class ProductManager:
         Product("Chocolate Milk Shake", "Cold chocolate shake", 40, 3, 1, "Chocolate MilkShake.jpg"),
         Product("Indomie", "Instant Noodles", 15, 3, 1, "Indomie.jpg"),
         Product("Hot Chocolate", "Hot cocoa", 30, 3, 1, "Hot Chocolate.jpg"),
-        Product("Omar", "3am alnas", 15, 1, 1, "omar.jpeg"),
+        Product("Omar", "3am alnas", 1.75, 1, 1, "omar.jpeg"),
     ]
 
     def add_all_products(self):
