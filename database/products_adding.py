@@ -63,7 +63,7 @@ class ProductManager:
         Product("Lily", "elegant fragrant blooms", 50, 1, 1, "Lily.JPEG"),
         Product("Peony", "lush full petals", 50, 1, 1, "Peony.JPEG"),
         Product("Tulip", "smooth cup-shaped", 50, 1, 1, "Tulip.JPEG"),
-        Product("Rose Garden", "layered rose petals", 50, 1, 1, "Rose Garden.JPEG"),
+        Product("Rose Garden", "layered rose petals", 50, 1, 1, "Rose Garden.jpg"),
         Product("Nescafe", "Warm caffeine", 25, 4, 1, "Nescafe.jpg"),
         Product("Latte", "Espresso with Skimmed milk", 30, 4, 1, "Latte.jpg"),
         Product("Mocha", "Espresso with Chocolate", 30, 4, 1, "Mocha.jpg"),
