@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.jpeg" alt="Just E-Shop Logo" width="180">
+  <img src="icon.ico" alt="Just E-Shop Logo" width="180">
 </p>
 
 <h1 align="center">🛒 E-Commerce System</h1>
