@@ -19,7 +19,7 @@
 - [Tech Stack](#-tech-stack)
 - [Project Goals](#-project-goals)
 - [System Architecture](#-system-architecture)
-- [Contributing](#-contributing)
+- [Contributers](#-contributers)
 
 ---
 
@@ -105,6 +105,7 @@ E-commerce-system/
 - Omar Sayed --> (DataBase)
 - Ahmed Salah --> (FrontEnd)
 ---
+
 
 
 
