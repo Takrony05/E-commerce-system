@@ -16,7 +16,7 @@ class ProductManager:
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM Products")
         rows = cursor.fetchall()
-        print(rows)
+        
         conn.close()
         return [Product(row[0],row[1], row[2], row[3], row[4], row[5], row[6] , row[7]) for row in rows]
 

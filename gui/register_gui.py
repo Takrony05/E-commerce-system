@@ -41,7 +41,7 @@ class RegisterApp:
 
     def setup_ui(self):
 
-        # العنوان
+        
         title_frame = ctk.CTkFrame(
             self.root,
             fg_color="#c0392b",
@@ -97,7 +97,7 @@ class RegisterApp:
             "text_color": "#2c3e50"
         }
 
-        #الاسم
+        
         self.name_entry = ctk.CTkEntry(
             self.register_frame,
             placeholder_text="Enter your name",
@@ -105,7 +105,7 @@ class RegisterApp:
         )
         self.name_entry.pack(pady=10)
 
-        # الاكونت
+        
         self.acc_entry = ctk.CTkEntry(
             self.register_frame,
             placeholder_text="Enter your e-mail",
@@ -113,7 +113,7 @@ class RegisterApp:
         )
         self.acc_entry.pack(pady=10)
 
-        #الباسورد
+        
         self.pass_entry = ctk.CTkEntry(
             self.register_frame,
             placeholder_text="Enter your password",
@@ -122,7 +122,7 @@ class RegisterApp:
         )
         self.pass_entry.pack(pady=10)
 
-        # الباسووورد تاكيد 
+        
         self.confirm_entry = ctk.CTkEntry(
             self.register_frame,
             placeholder_text="Confirm password",
