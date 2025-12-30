@@ -17,14 +17,9 @@
 - [About the Project](#-about-the-project)
 - [Key Features](#-key-features)
 - [Tech Stack](#-tech-stack)
+- [Project Goals](#-project-goals)
 - [System Architecture](#-system-architecture)
-- [Getting Started](#-getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#-usage)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Contact](#-contact)
+- [Contributers](#-contributers)
 
 ---
 
@@ -32,7 +27,7 @@
 
 This **E-commerce System** is a Python-based application that simulates the core functionality of an online shopping platform. It allows users to register, log in, browse products, and manage a shopping cart using a local database.
 
-The project focuses on **clean architecture**, **modular design**, and **core e-commerce logic**, making it ideal for learning purposes, academic projects, or portfolio presentation.
+The project focuses on **clean architecture**, **modular design**, and **core e-commerce logic**, making it ideal for learning purposes, academic projects, or portfolio presentations.
 
 ---
 
@@ -52,7 +47,7 @@ The project focuses on **clean architecture**, **modular design**, and **core e-
   Add, remove, and update items in the cart.
 
 - **Persistent Storage**  
-  Data stored using a local SQLite database.
+  Data is stored using a local SQLite database.
 
 > ⚠️ *Admin dashboard and payment processing are intentionally excluded.*
 
@@ -61,13 +56,13 @@ The project focuses on **clean architecture**, **modular design**, and **core e-
 ## 🛠 Tech Stack
 
 **Backend:**
-- Python backend
+- Python
 
 **Database:**
 - SQLite
 
 **Frontend / GUI:**
-- Python-based graphical interface
+- Python-based graphical interface (tkinter)
 
 **Tools:**
 - Git & GitHub
@@ -100,6 +95,17 @@ E-commerce-system/
 ├── main.py             # Application entry point
 └── README.md
 ```
+---
+## 👥 Contributers
+
+- Adnan Ahmed --> (BackEnd)
+- Abdelrahman Adel --> (BackEnd)
+- Ahmed El-Shazly --> (BackEnd)
+- Mohamed Ashraf --> (BackEnd)
+- Omar Sayed --> (DataBase)
+- Ahmed Salah --> (FrontEnd)
+---
+
 
 
 

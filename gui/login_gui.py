@@ -20,7 +20,7 @@ class LoginApp:
         self.setup_ui()
     
     def setup_ui(self):
-        #الخلفيه
+        
         base_path = Path(__file__).resolve().parent
         bg_path = base_path / "assets" / "background1.jpg"
 
@@ -62,7 +62,7 @@ class LoginApp:
             text_color="white"
         ).place(relx=0.5, rely=0.5, anchor="center")
 
-        # لصندوق
+        
         self.login_frame = ctk.CTkFrame(
             self.root,
             width=370,
