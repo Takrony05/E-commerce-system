@@ -58,7 +58,7 @@ class ProductsUI:
 
         ctk.CTkLabel(
             title_frame,
-            text="JUST E-Buy  |  Products",
+            text="JUST E-BUY  |  Products",
             font=ctk.CTkFont(
                 family="Comic Sans MS",
                 size=40,

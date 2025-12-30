@@ -79,7 +79,7 @@ class ShopsUI:
     def __init__(self, user=None):
         self.user = user
         self.root = ctk.CTk()
-        self.root.title("JUST E-pay | Shops")
+        self.root.title("JUST E-BUY | Shops")
         self.root.after(0, lambda: self.root.state("zoomed"))
         self.root.state("zoomed")
         self.root.configure(fg_color="#f5f5f5")

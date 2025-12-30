@@ -53,7 +53,7 @@ class RegisterApp:
 
         ctk.CTkLabel(
             title_frame,
-            text="JUST E-Buy",
+            text="JUST E-BUY",
             font=ctk.CTkFont(
                 family="Comic Sans MS",
                 size=56,

@@ -75,7 +75,7 @@ class CartUI:
 
         ctk.CTkLabel(
             title,
-            text="JUST E-Buy  |  Shopping Cart",
+            text="JUST E-BUY  |  Shopping Cart",
             font=ctk.CTkFont(
                 family="Comic Sans MS",
                 size=40,
