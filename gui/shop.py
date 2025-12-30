@@ -109,7 +109,7 @@ class ShopsUI:
 
         ctk.CTkLabel(
             title_frame,
-            text="JUST E-pay  |  Shops",
+            text="JUST E-BUY  |  Shops",
             font=ctk.CTkFont(
                 family="Comic Sans MS",
                 size=40,
